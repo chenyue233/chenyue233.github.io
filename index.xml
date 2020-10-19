@@ -7,11 +7,25 @@
             <webMaster>1269954795@qq.com (chenyue233)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 16 Oct 2020 13:22:48 &#43;0800</lastBuildDate>
             <atom:link href="https://example.com/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>git 基础命令</title>
+    <link>https://example.com/git_command/</link>
+    <pubDate>Fri, 16 Oct 2020 13:22:48 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://example.com/git_command/</guid>
+    <description><![CDATA[在本地清理远程已被删除的分支 git remote prune origin 检查配置信息 git config --list 在已存在的目录中初始化仓库 git init (在该项目目录下) 跟踪指定文件(添加问价到暂存区) git add 文]]></description>
+</item><item>
     <title>My First Hugo Blog</title>
     <link>https://example.com/firsthugoblog/</link>
     <pubDate>Fri, 16 Oct 2020 13:22:48 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://example.com/firsthugoblog/</guid>
     <description><![CDATA[HI 实践出真知]]></description>
+</item><item>
+    <title>redis 基础命令</title>
+    <link>https://example.com/redis_command/</link>
+    <pubDate>Fri, 16 Oct 2020 13:22:48 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://example.com/redis_command/</guid>
+    <description><![CDATA[Redis命令 基础命令 通配符 符号 含义 ? 匹配一个字符 * 匹配任意个字符 [] 匹配括号间的任一字符，可以使用 “-” 符号表示一个范围，例如 [a-d] 等价于 [abcd] \x 转]]></description>
 </item></channel>
 </rss>

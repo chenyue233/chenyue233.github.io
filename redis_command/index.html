@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>redis 基础命令 - chenyue233</title><meta name="Description" content="redis 基础命令"><meta property="og:title" content="redis 基础命令" />
+<meta property="og:description" content="redis 基础命令" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://example.com/redis_command/" />
+<meta property="og:image" content="https://example.com/logo.png"/>
+<meta property="article:published_time" content="2020-10-16T13:22:48+08:00" />
+<meta property="article:modified_time" content="2020-10-16T13:22:48+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://example.com/logo.png"/>
+
+<meta name="twitter:title" content="redis 基础命令"/>
+<meta name="twitter:description" content="redis 基础命令"/>
+<meta name="application-name" content="chenyue233">
+<meta name="apple-mobile-web-app-title" content="chenyue233"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://example.com/redis_command/" /><link rel="next" href="https://example.com/firsthugoblog/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "redis 基础命令",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/example.com\/redis_command\/"
+        },"image": ["https:\/\/example.com\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "命令","wordcount":  10252 ,
+        "url": "https:\/\/example.com\/redis_command\/","datePublished": "2020-10-16T13:22:48+08:00","dateModified": "2020-10-16T13:22:48+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/example.com\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "chenyue233"
+            },"description": "redis 基础命令"
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="chenyue233"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/categories/documentation/"> 文档 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/chenyue233/myhugo" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/redis_command/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="chenyue233"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/categories/documentation/" title="">文档</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/chenyue233/myhugo" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/redis_command/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">redis 基础命令</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>chenyue233</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%91%BD%E4%BB%A4/"><i class="far fa-folder fa-fw"></i>命令</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-10-16">2020-10-16</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 10252 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 21 分钟&nbsp;<span id="/redis_command/" class="leancloud_visitors" data-flag-title="redis 基础命令">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#基础命令">基础命令</a>
+          <ul>
+            <li><a href="#通配符">通配符</a></li>
+            <li><a href="#检查键是否存在">检查键是否存在</a></li>
+            <li><a href="#删除键">删除键</a></li>
+            <li><a href="#查看键的数据类型">查看键的数据类型</a></li>
+            <li><a href="#重命名键">重命名键</a></li>
+            <li><a href="#随机获取一个键">随机获取一个键</a></li>
+          </ul>
+        </li>
+        <li><a href="#键过期">键过期</a>
+          <ul>
+            <li><a href="#置顶键的存活时间">置顶键的存活时间</a></li>
+            <li><a href="#查看键的存活时间">查看键的存活时间</a></li>
+            <li><a href="#键在指定的时间戳过期">键在指定的时间戳过期</a></li>
+            <li><a href="#注意事项">注意事项</a></li>
+            <li><a href="#清楚过期时间">清楚过期时间</a></li>
+            <li><a href="#set命令">SET命令</a></li>
+            <li><a href="#二级数据结构">二级数据结构</a></li>
+            <li><a href="#setex命令">SETEX命令</a></li>
+          </ul>
+        </li>
+        <li><a href="#字符串">字符串</a>
+          <ul>
+            <li><a href="#常用字符串命令">常用字符串命令</a></li>
+            <li><a href="#赋值">赋值</a></li>
+            <li><a href="#为键赋值同时设置秒级过期时间">为键赋值同时设置秒级过期时间</a></li>
+            <li><a href="#键不存在才能赋值成功">键不存在才能赋值成功</a></li>
+            <li><a href="#取值">取值</a></li>
+            <li><a href="#批量赋值">批量赋值</a></li>
+            <li><a href="#批量赋值要求键都不存在">批量赋值，要求键都不存在</a></li>
+            <li><a href="#批量取值">批量取值</a></li>
+          </ul>
+        </li>
+        <li><a href="#计数">计数</a>
+          <ul>
+            <li><a href="#其他计数命令">其他计数命令</a></li>
+            <li><a href="#不常用字符串命令">不常用字符串命令</a></li>
+            <li><a href="#追加值">追加值</a></li>
+            <li><a href="#取字符串长度">取字符串长度</a></li>
+            <li><a href="#复制并返回原值">复制并返回原值</a></li>
+            <li><a href="#覆盖指定位置的字符">覆盖指定位置的字符</a></li>
+            <li><a href="#获取字符">获取字符</a></li>
+          </ul>
+        </li>
+        <li><a href="#哈希">哈希</a>
+          <ul>
+            <li><a href="#常用的命令">常用的命令</a></li>
+            <li><a href="#为哈希字段赋值">为哈希字段赋值</a></li>
+            <li><a href="#字段不存在时才能赋值成功">字段不存在时才能赋值成功</a></li>
+            <li><a href="#取值-1">取值</a></li>
+            <li><a href="#批量赋值-1">批量赋值</a></li>
+            <li><a href="#批量取值-1">批量取值</a></li>
+            <li><a href="#获取键的所有键值对">获取键的所有键值对</a></li>
+            <li><a href="#判断字段是否存在">判断字段是否存在</a></li>
+            <li><a href="#删除字段">删除字段</a></li>
+            <li><a href="#获取字段的数量">获取字段的数量</a></li>
+            <li><a href="#不常用的命令">不常用的命令</a></li>
+            <li><a href="#获取所有的字段名">获取所有的字段名</a></li>
+            <li><a href="#获取所有的字段值">获取所有的字段值</a></li>
+            <li><a href="#获取字段的长度">获取字段的长度</a></li>
+            <li><a href="#字段值计数">字段值计数</a></li>
+          </ul>
+        </li>
+        <li><a href="#列表">列表</a>
+          <ul>
+            <li><a href="#常用的命令-1">常用的命令</a></li>
+            <li><a href="#从列表右端插入元素">从列表右端插入元素</a></li>
+            <li><a href="#从列表左端插入元素">从列表左端插入元素</a></li>
+            <li><a href="#在某个元素的前面或后面插入元素">在某个元素的前面或后面插入元素</a></li>
+            <li><a href="#查找元素">查找元素</a></li>
+            <li><a href="#获取指定范围内的元素列表">获取指定范围内的元素列表</a></li>
+            <li><a href="#删除元素">删除元素</a></li>
+            <li><a href="#从列表右端弹出">从列表右端弹出</a></li>
+            <li><a href="#删除指定的元素">删除指定的元素</a></li>
+            <li><a href="#保留指定范围内的元素">保留指定范围内的元素</a></li>
+            <li><a href="#修改元素">修改元素</a></li>
+            <li><a href="#获取列表的长度">获取列表的长度</a></li>
+            <li><a href="#不常用的命令-1">不常用的命令</a></li>
+            <li><a href="#rpushx">RPUSHX</a></li>
+            <li><a href="#lpushx">LPUSHX</a></li>
+          </ul>
+        </li>
+        <li><a href="#集合">集合</a>
+          <ul>
+            <li><a href="#常用的命令-2">常用的命令</a></li>
+            <li><a href="#添加命令">添加命令</a></li>
+            <li><a href="#删除元素-1">删除元素</a></li>
+            <li><a href="#获取集合的所有元素">获取集合的所有元素</a></li>
+            <li><a href="#计算集合元素的个数">计算集合元素的个数</a></li>
+            <li><a href="#判断元素是否在集合中">判断元素是否在集合中</a></li>
+          </ul>
+        </li>
+        <li><a href="#集合运算">集合运算</a>
+          <ul>
+            <li><a href="#交集">交集</a></li>
+            <li><a href="#并集">并集</a></li>
+            <li><a href="#差集">差集</a></li>
+            <li><a href="#保存集合运算的结果">保存集合运算的结果</a></li>
+            <li><a href="#不常用的命令-2">不常用的命令</a></li>
+            <li><a href="#删除集合第一个元素并作为结果返回">删除集合第一个元素并作为结果返回</a></li>
+            <li><a href="#将元素从一个集合移动至另一个集合">将元素从一个集合移动至另一个集合</a></li>
+          </ul>
+        </li>
+        <li><a href="#有序集合">有序集合</a>
+          <ul>
+            <li><a href="#常用的命令-3">常用的命令</a></li>
+            <li><a href="#添加元素">添加元素</a></li>
+            <li><a href="#删除元素-2">删除元素</a></li>
+            <li><a href="#计算有序集合元素的个数">计算有序集合元素的个数</a></li>
+            <li><a href="#获取元素的分数">获取元素的分数</a></li>
+            <li><a href="#计算成员排名">计算成员排名</a></li>
+            <li><a href="#获取指定排名范围内的元素">获取指定排名范围内的元素</a></li>
+            <li><a href="#获取指定分数范围内的元素">获取指定分数范围内的元素</a></li>
+          </ul>
+        </li>
+        <li><a href="#获取在指定分数范围内的元素个数">获取在指定分数范围内的元素个数</a></li>
+        <li><a href="#集合运算-1">集合运算</a>
+          <ul>
+            <li><a href="#并集-1">并集</a></li>
+            <li><a href="#交集-1">交集</a></li>
+            <li><a href="#不常用的命令-3">不常用的命令</a></li>
+            <li><a href="#删除在指定片名范围内的元素">删除在指定片名范围内的元素</a></li>
+            <li><a href="#删除在指定分数范围内的元素">删除在指定分数范围内的元素</a></li>
+            <li><a href="#增加元素的分数">增加元素的分数</a></li>
+          </ul>
+        </li>
+        <li><a href="#遍历键">遍历键</a></li>
+        <li><a href="#数据库管理">数据库管理</a>
+          <ul>
+            <li><a href="#切换数据库">切换数据库</a></li>
+            <li><a href="#清空数据库数据">清空数据库数据</a></li>
+            <li><a href="#清空当前数据库数据">清空当前数据库数据</a></li>
+            <li><a href="#清空所有数据库数据">清空所有数据库数据</a></li>
+            <li><a href="#查看当前数据库键的数量">查看当前数据库键的数量</a></li>
+          </ul>
+        </li>
+        <li><a href="#键迁移">键迁移</a>
+          <ul>
+            <li><a href="#move">MOVE</a></li>
+            <li><a href="#dump--restore">DUMP + RESTORE</a></li>
+            <li><a href="#migrate">MIGRATE</a></li>
+          </ul>
+        </li>
+        <li><a href="#内部编码">内部编码</a>
+          <ul>
+            <li><a href="#字符串-1">字符串</a></li>
+            <li><a href="#哈希-1">哈希</a></li>
+            <li><a href="#列表-1">列表</a></li>
+            <li><a href="#有序集合-1">有序集合</a></li>
+          </ul>
+        </li>
+        <li><a href="#redis慢查询分析">Redis慢查询分析</a>
+          <ul>
+            <li><a href="#参数配置">参数配置</a></li>
+            <li><a href="#常用的命令-4">常用的命令</a></li>
+            <li><a href="#获取慢查询日志列表的长度">获取慢查询日志列表的长度</a></li>
+            <li><a href="#重置慢查询列表">重置慢查询列表</a></li>
+          </ul>
+        </li>
+        <li><a href="#最佳实践">最佳实践</a></li>
+        <li><a href="#pipeline">Pipeline</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="redis命令">Redis命令</h1>
+<h3 id="基础命令">基础命令</h3>
+<h4 id="通配符">通配符</h4>
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>?</td>
+<td>匹配一个字符</td>
+</tr>
+<tr>
+<td>*</td>
+<td>匹配任意个字符</td>
+</tr>
+<tr>
+<td>[]</td>
+<td>匹配括号间的任一字符，可以使用 <code>“-”</code> 符号表示一个范围，例如 <code>[a-d]</code> 等价于 <code>[abcd]</code></td>
+</tr>
+<tr>
+<td>\x</td>
+<td>转义符号 <code>x</code>，例如要匹配 <code>“?”</code>，则需要使用 <code>\?</code></td>
+</tr>
+</tbody>
+</table>
+<p>​	例:</p>
+<ul>
+<li>
+<p>查看所有键<br>
+<code>KEYS *</code></p>
+</li>
+<li>
+<p>查看名字包含name的键</p>
+<p><code>KEYS *name*</code></p>
+</li>
+<li>
+<p>查看名字以a开头的且长度为3的键</p>
+<p><code>KEYS a??</code></p>
+</li>
+</ul>
+<h4 id="检查键是否存在">检查键是否存在</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">EXISTS Key1
+结果:(interger)1 存在
+EXISTS nosuchkey 
+结果:(interger)0 不存在
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="删除键">删除键</h4>
+<p><code>DEL key1 key2</code></p>
+<h4 id="查看键的数据类型">查看键的数据类型</h4>
+<p><code>TYPE key1</code></p>
+<p>结果：成功返回数据类型，不成功返回none</p>
+<h4 id="重命名键">重命名键</h4>
+<p><code>RENAME oldname newname</code></p>
+<p>结果:ok ，如果重命名之前，newname已存在，那么newname会被覆盖</p>
+<p>防止被覆盖:</p>
+<p><code>RENAMENX oldname newname</code></p>
+<p>结果:ok成功，0代表newname已存在</p>
+<h4 id="随机获取一个键">随机获取一个键</h4>
+<p><code>RANDOMKEY</code></p>
+<p>结果:从当前数据库随机返回一个键，如果数据库是空则返回nil</p>
+<h3 id="键过期">键过期</h3>
+<h4 id="置顶键的存活时间">置顶键的存活时间</h4>
+<p><code>EXPIRE key seconds</code>,表示key在seconds秒后过期</p>
+<p>例: <code>EXPIRE foo 3</code></p>
+<p>毫秒:PEXPIRE</p>
+<h4 id="查看键的存活时间">查看键的存活时间</h4>
+<p><code>TTL KEY</code></p>
+<p>返回值:</p>
+<ul>
+<li>大于等于0的整数:键存活时间，单位秒</li>
+<li>-1：键没设过期时间</li>
+<li>-2：键不存在</li>
+</ul>
+<p>例：TTL foo</p>
+<p><code>PTTL key</code>返回的单位是毫秒</p>
+<h4 id="键在指定的时间戳过期">键在指定的时间戳过期</h4>
+<p><code>EXPIREAT key timestamp</code>,表示键在秒级别时间戳timestamp后过期。例如将键foo设置在2018-05-10 23:30:00(秒级时间戳为 1525966200）后过期：</p>
+<p>例：</p>
+<p><code>EXPIREAT foo 1525966200</code></p>
+<p>毫秒：PEXPIREAT</p>
+<h4 id="注意事项">注意事项</h4>
+<ul>
+<li>
+<p>键不存在</p>
+<p>如果<code>EXPIRE</code>命令指定的键不存在，返回结果为0:</p>
+</li>
+<li>
+<p>指定负值时间</p>
+<p>如果过期时间为负值，键会被立即删除，就像使用del命令一样</p>
+<p>为EXPIREAT命令指定一个过去的时间也是如此</p>
+</li>
+</ul>
+<h4 id="清楚过期时间">清楚过期时间</h4>
+<p>PERSIST 命令可已清除过期时间:</p>
+<p>例:</p>
+<p><code>PERSIST foo</code></p>
+<h4 id="set命令">SET命令</h4>
+<p><font color=#FF0000 >对于字符串类型的键，执行SET命令会清除键的过期时间</font>，这个问题在开发过程中很容易被忽视</p>
+<h4 id="二级数据结构">二级数据结构</h4>
+<p>Redis 不支持二级数据结构（例如哈希、列表）内部元素的过期功能，例如不能对列表的一个元素做过期时间操作</p>
+<h4 id="setex命令">SETEX命令</h4>
+<p><code>SETEX key seconds value</code></p>
+<p>例: SETEX cache_user_id 60 10086</p>
+<p>SETEX命令作为SET+EXPIRE的组合，不但是原子执行，同时也减少了一个网络开销</p>
+<h3 id="字符串">字符串</h3>
+<p>字符串类型是 Redis 最基础的数据结构。字符串类型的值可以存储任何形式的字符串：JSON、XML、数字、图片等。一个字符串类型键允许存储的数据的最大容量是<font color=#FF0000 > 512 MB</font></p>
+<h4 id="常用字符串命令">常用字符串命令</h4>
+<h4 id="赋值">赋值</h4>
+<p><code> SET key value [EX seconds] [PX milliseconds] [NX|XX]</code></p>
+<p>例:SET foo &ldquo;hello&rdquo;</p>
+<p>Set命令有几个选择：</p>
+<p>-EX seconds：为键设置秒级过期时间。
+-PX milliseconds：为键设置毫秒级过期时间
+-NX：键必须不存在，才可以设置成功，用于添加键。
+-XX：与 NX 相反，键必须存在，才可以设置成功，用于更新键。</p>
+<p>除了这些选项，Redis 还提供了 SETEX、PSETEX 和 SETNX 等命令。</p>
+<h4 id="为键赋值同时设置秒级过期时间">为键赋值同时设置秒级过期时间</h4>
+<p><code>SETEX key seconds value</code></p>
+<p>在为键赋值的同时为键设置秒级过期时间</p>
+<p>PSETEX 命令与 SETEX 命令类似，但它为键设置的是毫秒级过期时间</p>
+<h4 id="键不存在才能赋值成功">键不存在才能赋值成功</h4>
+<p><code>SETNX key value</code></p>
+<p>键必须不存在，才能成功赋值。当赋值成功时结果返回 1，否则结果返回 0</p>
+<h4 id="取值">取值</h4>
+<p><code>GET key</code></p>
+<p>如果键不存在，那么结果返回 nil。如果键存在但它的数据类型不是字符串，则会返回一个错误。</p>
+<h4 id="批量赋值">批量赋值</h4>
+<p><code>MUST key value [key value ...]</code></p>
+<p>例： MSET a &ldquo;1&rdquo; b &ldquo;2&rdquo; c &ldquo;3&rdquo;</p>
+<h4 id="批量赋值要求键都不存在">批量赋值，要求键都不存在</h4>
+<p><code>MSETNX key value [key value ....]</code></p>
+<p>要求所有的键都不存在，只要有一个键已存在，则所有的键都不会被赋值</p>
+<p>MSETNX 命令是原子的，所以 在 Redis 客户端不会看到部分键先被赋值而部分键还未被赋值的情况</p>
+<h4 id="批量取值">批量取值</h4>
+<p><code>MGET key [key ...]</code></p>
+<p>例:MGET c b a</p>
+<h3 id="计数">计数</h3>
+<p>INCR命令</p>
+<p><code>INCR key</code></p>
+<p>INCR 命令用于对键值做自增操作,返回结果分为三种情况</p>
+<p>-键值不是整数，返回错误
+-键值是整数，返回自增后的结果
+-键不存在，按照值为 0 自增，返回结果是 1</p>
+<h4 id="其他计数命令">其他计数命令</h4>
+<p>除了INCR命令，Redis还提供了几个计算操作的命令:</p>
+<p>-DECR 命令用于自减操作，它的用法是<code>DECR key</code>
+-INCRBY命令可以自增指定数值，它的用法是<code>INCRBY key increment</code>
+-DECRBY 命令可以自减指定数值，它的用法是<code>DECRBY key decrement</code>
+-INCRBYFLOAT 命令可以自增浮点数，它的用法是<code>INCRBYFLOAT key increment</code></p>
+<h4 id="不常用字符串命令">不常用字符串命令</h4>
+<h4 id="追加值">追加值</h4>
+<p>APPEND 命令可以向字符串尾部追加值，它的用法是：APPEND key value</p>
+<p>如果指定的键不存在，则将该键设置为空字符串再执行追加操作，这样就与set命令类似</p>
+<h4 id="取字符串长度">取字符串长度</h4>
+<p><code>STRLEN</code>命令可以获取键值的长度，它的用法是<code>STRLEN key</code></p>
+<p>UTF8编码的中文字符占三个字节</p>
+<h4 id="复制并返回原值">复制并返回原值</h4>
+<p>GETSET命令与SET命令一样可以为键赋值，但同时返回键原来的值。它的用法是<code>GETSET key value</code></p>
+<h4 id="覆盖指定位置的字符">覆盖指定位置的字符</h4>
+<p>SETRANGE命令从指定的偏移位置开始覆盖字符串值，它的用法是<code>SETRANGE key offset value</code></p>
+<h4 id="获取字符">获取字符</h4>
+<p>GETRANGE命令可以获取字符串的长度，它的用法是<code>GETRANGE key start end</code>。start和end分别是开始和结束的偏移量，偏移量是从0开始计算，当偏移量是负数时，表示从右至左数起。</p>
+<h3 id="哈希">哈希</h3>
+<h4 id="常用的命令">常用的命令</h4>
+<h4 id="为哈希字段赋值">为哈希字段赋值</h4>
+<p><code>HSET key field value</code>  当指定键或者字段不存在时，则会自动创建该键或字段</p>
+<p>例:HSET user:1 name huey</p>
+<h4 id="字段不存在时才能赋值成功">字段不存在时才能赋值成功</h4>
+<p><code>HSETNX key field value</code> 要求只有该字段不存在时，才能赋值成功。</p>
+<p>例 :HSETNX user:1 name &ldquo;huey&rdquo;</p>
+<h4 id="取值-1">取值</h4>
+<p><code>HGET key field</code></p>
+<p>例：HGET user:1 name</p>
+<h4 id="批量赋值-1">批量赋值</h4>
+<p><code>HMSET key field value [field value]</code></p>
+<p>例：HSMET user:1 name &ldquo;hury&rdquo; age 18</p>
+<h4 id="批量取值-1">批量取值</h4>
+<p><code>HMGET key field [field..]</code>  结果按字段顺序返回，不存在返回nil</p>
+<p>例: HMGET user:1 name age gender</p>
+<h4 id="获取键的所有键值对">获取键的所有键值对</h4>
+<p><code>HGETALL key</code> 支持一次性返回哈希键上所有的键值对</p>
+<p>例：HGETALL user:1</p>
+<p>ds</p>
+<p><font color=#FF0000 >注:</font> 使用HGETALL命令时，如果哈希元素个数比较多，会存在堵塞redis的可能。如果只需要获取部分字段，使用HMGET命令。如果一定要获取全部的键值对，可以使用<code>HSCAN</code>命令，该命令可以渐进式遍历哈希类型</p>
+<h4 id="判断字段是否存在">判断字段是否存在</h4>
+<p><code>HEXISTS key field</code> 如果键包含指点的字段，那么结果返回1，否则返回0</p>
+<h4 id="删除字段">删除字段</h4>
+<p><code>HDEL key field [field...]</code> 用户删除哈希键上的一个或多个字段，返回成功删除字段的数量</p>
+<p>例: HDEL user:1 age gender</p>
+<h4 id="获取字段的数量">获取字段的数量</h4>
+<p><code>HLEN key</code>  返回指定的哈希键有多少个字段</p>
+<p>例：HLEN user:1</p>
+<h4 id="不常用的命令">不常用的命令</h4>
+<h4 id="获取所有的字段名">获取所有的字段名</h4>
+<p><code>HKEYS key</code> 返回哈希键上的所有字段</p>
+<h4 id="获取所有的字段值">获取所有的字段值</h4>
+<p><code>HVALS key</code> 返回指定哈希键上所有字段值</p>
+<h4 id="获取字段的长度">获取字段的长度</h4>
+<p><code>HSTRLEN key field</code> 返回指定字段的长度</p>
+<p>例:HSTRLEN user:1 name</p>
+<h4 id="字段值计数">字段值计数</h4>
+<p><code>HINCRBY key field increment</code> 支持哈希字段自增指定整数值</p>
+<p><code>HINCRBYFLOAT key field increment</code> 命令支持哈希字段自增指定浮点数</p>
+<h3 id="列表">列表</h3>
+<p>列表类型是用来存储多个有序字符串，列表中的每个字符串成为元素，一个列表最大可以存储 2的32次方-1个元素。列表类型有两个特点</p>
+<p>1、列表中的元素是有序的</p>
+<p>2、列表中的元素可以是重复的</p>
+<h4 id="常用的命令-1">常用的命令</h4>
+<h4 id="从列表右端插入元素">从列表右端插入元素</h4>
+<p><code>RPUSH key value [value...]</code>往指定的列表右端插入元素，如果指定了多个元素，这些元素将按指定的顺序依次插入列表的右端</p>
+<p><code>LRANGE key 0 -1</code>命令能够从左至右获取列表的所有元素</p>
+<h4 id="从列表左端插入元素">从列表左端插入元素</h4>
+<p><code>LPUSH key value [value...]</code> 与RPUSH类似，只不过往列表左端插入元素</p>
+<h4 id="在某个元素的前面或后面插入元素">在某个元素的前面或后面插入元素</h4>
+<p><code>LINSERT key BEFORE|AFTER pivot value</code>  它会在列表中找到与pivot相等的元素，在其前面或后面插入元素value，并返回当前列表当长度作为结果。如果在列表中找不到与 pivot 相等的元素，则返回 -1。</p>
+<h4 id="查找元素">查找元素</h4>
+<p><code>LINDEX key index</code> 用户获取指定索引下标的元素。<font color=#FF0000 >redis列表的索引下标从左往右分别是0到N-1，从右往左分别是-1到-N</font></p>
+<h4 id="获取指定范围内的元素列表">获取指定范围内的元素列表</h4>
+<p><code>LRANGE key start stop</code> stop 参数包含了自身，这和许多编程语言不包含 stop 不太相同</p>
+<h4 id="删除元素">删除元素</h4>
+<p><code>LPOP key</code> 移除列表的第一个元素，并将该元素作为结果返回</p>
+<h4 id="从列表右端弹出">从列表右端弹出</h4>
+<p><code>RPOP key</code> 移除列表的最后一个元素</p>
+<h4 id="删除指定的元素">删除指定的元素</h4>
+<p><code>LREM key count value</code> 删除列表中与value的元素，根据count的不同分为三种情况</p>
+<ul>
+<li>
+<p>count &gt;0:从左至右，最多删除count个与value相等的元素</p>
+</li>
+<li>
+<p>count&lt;0:从右至左，最多删除count个与value相等的元素</p>
+</li>
+<li>
+<p>count=0：删除列表中所有与value相等的元素</p>
+</li>
+</ul>
+<h4 id="保留指定范围内的元素">保留指定范围内的元素</h4>
+<p><code>LTRIM key start stop</code> 仅保留列表指定范围内的元素，不在范围内的元素将会被删除</p>
+<h4 id="修改元素">修改元素</h4>
+<p><code>LSET key index value</code>修改指定索引下表的元素</p>
+<h4 id="获取列表的长度">获取列表的长度</h4>
+<p><code>LLEN key</code> 返回指定列表的长度</p>
+<h4 id="不常用的命令-1">不常用的命令</h4>
+<p><code>RPOPLPUSH source destination</code> 现制定RPOP操作再置顶LPUSH操作：从source列表的右端弹出一个元素，再把这个元素插入destination列表的左端，最后返回这个元素作为结果，整个过程是原子的</p>
+<p><font color=#FF0000 >注：</font> 可以将source与destination都指定成同一个列表，那么这个列表就相当于一个列表循环</p>
+<h4 id="rpushx">RPUSHX</h4>
+<p><code>RPUSHX key value</code> 与RPUSH命令类似，只要它要求指定的 列表必须存在，才能成功往列表插入元素</p>
+<h4 id="lpushx">LPUSHX</h4>
+<p>与 RPUSHX 命令类似，只是当满足条件时，它往列表的左端插入元素</p>
+<h3 id="集合">集合</h3>
+<p>集合类型也是用来存储多个有序的字符串元素，它和列表不一样的是，集合不允许有重复元素，而且集合中的元素是无序的，不能通过索引下标获取元素</p>
+<h4 id="常用的命令-2">常用的命令</h4>
+<h4 id="添加命令">添加命令</h4>
+<p><code>SADD key member [member...]</code> 用于向集合添加元素，如果指定的元素集合中已经存在，那么就会忽略该元素，结果返回的是成功添加到集合的元素个数</p>
+<h4 id="删除元素-1">删除元素</h4>
+<p><code>SREM key member[]member...</code> 接受一个或多个元素作为参数，从指定的集合将这些元素移除，如果某个元素不是集合的成员，那么忽略此元素，最后返回成功移除元素的个数</p>
+<h4 id="获取集合的所有元素">获取集合的所有元素</h4>
+<p><code>SMEMBERS key</code> 获取指定集合的所有元素</p>
+<h4 id="计算集合元素的个数">计算集合元素的个数</h4>
+<p><code>SCARD key</code>计算指定集合的基数</p>
+<h4 id="判断元素是否在集合中">判断元素是否在集合中</h4>
+<p><code>SISMEMBER key member</code> 判断指定的元素是否是集合的成员，如果是返回1，否则返回0</p>
+<h3 id="集合运算">集合运算</h3>
+<h4 id="交集">交集</h4>
+<p><code>SINTER key [key ...]</code> 计算多个集合的交集</p>
+<p>例: SINTER set1 set2</p>
+<h4 id="并集">并集</h4>
+<p><code>SUNION key [key...]</code> 用于计算多个集合的并集</p>
+<p>例:SUNION set1 set2</p>
+<h4 id="差集">差集</h4>
+<p><code>SDIFF key [key...]</code></p>
+<p>例:SDIFF set1 set2</p>
+<h4 id="保存集合运算的结果">保存集合运算的结果</h4>
+<p>集合运算在元素较多的情况下会比较耗时，如果能将运算结果保存，下次需要做相同的运算将极大地提升效率</p>
+<p>SINTER、SUNION、SDIFF 这三个命令分别对应一个命令将运算后的结果保存在一个指定的集合：</p>
+<ul>
+<li>
+<p>SINTERSTORE 命令的用法是<code>SINTERSTORE destination key [key ...]</code> 它对多个集合做交集运算并将结果保存在destination</p>
+</li>
+<li>
+<p>SUNIONSTORE 命令的用法是<code>SUNIONSTORE destination key [key ...]</code>,它多多个集合做交集运算并将结果保存在destination中</p>
+</li>
+<li>
+<p>SDIFFSTORE命令的用法是<code> SDIFFSTORE destination key [key ...]</code>，它对多个集合做差集运算并将结果保存在destionation中</p>
+</li>
+</ul>
+<h4 id="不常用的命令-2">不常用的命令</h4>
+<h4 id="删除集合第一个元素并作为结果返回">删除集合第一个元素并作为结果返回</h4>
+<p><code>SPOP key [count]</code> 将返回元素但元素从集合中弹出</p>
+<h4 id="将元素从一个集合移动至另一个集合">将元素从一个集合移动至另一个集合</h4>
+<p><code>SMOVE source destination member</code> 如果member不是source的成员或者source不存在，那么忽略此操作并返回0，否则member被移动至destination并返回1.如果destination已经存在member，那么仅仅是将member从source移除</p>
+<h3 id="有序集合">有序集合</h3>
+<p>有序集合类型保留了集合不能有重复元素的特点，但不同的是，有序集合中的元素可以排序。有序集合类型为集合中的每个元素都关联了一个分数，这个分数便是排序的依据。</p>
+<h4 id="常用的命令-3">常用的命令</h4>
+<h4 id="添加元素">添加元素</h4>
+<p><code>ZADD key [NX|XX] [CH] []INCR source member [source member ...]</code> 用户为指定的有序集合添加成员，NX、XX、CH和INCR四个选项从3.02版本才开始支持:</p>
+<ul>
+<li>
+<p>NX:member必须不存在，才可以设置成功，用于添加</p>
+</li>
+<li>
+<p>XX：member必须存在，才可以设计成功，用于更新</p>
+</li>
+<li>
+<p>CH：返回此次操作后，有序集合元素和分数发生变化的个数</p>
+</li>
+<li>
+<p>INCR:对score做自增操作</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="C:%5cUsers%5cchenyue%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5c1578495730035.png"
+        data-srcset="C:%5cUsers%5cchenyue%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5c1578495730035.png, C:%5cUsers%5cchenyue%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5c1578495730035.png 1.5x, C:%5cUsers%5cchenyue%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5c1578495730035.png 2x"
+        data-sizes="auto"
+        alt="C:\Users\chenyue\AppData\Roaming\Typora\typora-user-images\1578495730035.png"
+        title="1578495730035" /></p>
+</li>
+</ul>
+<h4 id="删除元素-2">删除元素</h4>
+<p><code>ZREM key member [member...]</code> 删除有序集合的成员</p>
+<h4 id="计算有序集合元素的个数">计算有序集合元素的个数</h4>
+<p><code>ZCARD key</code> 计算指定有序集合的基数</p>
+<h4 id="获取元素的分数">获取元素的分数</h4>
+<p><code>ZSCORE key member</code> 获取有序集合中指定成员的分数，如果成员不存在，返回nil</p>
+<h4 id="计算成员排名">计算成员排名</h4>
+<p><code>ZRANK key member</code>获取指定成员在有序集合中的排名，排名以成员分数为依据，分数值越低，排名越高</p>
+<p><code>ZREVERANK key member</code>分数越高，排名越高</p>
+<h4 id="获取指定排名范围内的元素">获取指定排名范围内的元素</h4>
+<p><code>ZRANGE key start stop [WITHSCORES]</code> 以成员分数升序的方式返回排名在区间的成员,指定WITHSCORES,结果会返回分数</p>
+<p><code>ZREVRANGE key start stop [WITHSCORES]</code> 以分数降序的方式返回排名在区间的成员</p>
+<h4 id="获取指定分数范围内的元素">获取指定分数范围内的元素</h4>
+<p><code>ZRANGEBYSCORE key min max [WITHSCORE][LIMIT offset count]</code> 用户获取分数值在区间[mix,max]的成员，按分数从小到大排序。如果置顶WITHSCORES选项，返回结果会包含成员分数。[LIIMIT offset count]选项可以限制输出的起始位置和个数</p>
+<p><code>ZREVRANGEBYSCORE key min max [WITHSCORE][LIMIT offset count]</code>ZRANGEBYSCORE 命令类似，但它是按分数从大到小排序</p>
+<h3 id="获取在指定分数范围内的元素个数">获取在指定分数范围内的元素个数</h3>
+<p><code>ZCOUNT key min max</code> 获取分数值在指定范围内的成员个数</p>
+<h3 id="集合运算-1">集合运算</h3>
+<h4 id="并集-1">并集</h4>
+<p><code>ZUNIONSTORE destination numkeys key [key...] [WEIGHTS weight...] [AGGREGATE SUM|MIN|MAX]</code></p>
+<ul>
+<li>
+<p>destination:保存并集运算的结果</p>
+</li>
+<li>
+<p>numkeys:需要做并集运算的键的个数</p>
+</li>
+<li>
+<p>key[key&hellip;]:需要做并集运算的键</p>
+</li>
+<li>
+<p>[WEIGHTS weight[weight]]:每个键的权重，在做并集运算时，每个键中的每个成员会将自己的分数乘以这个权重，每个键的权重默认是1</p>
+</li>
+<li>
+<p>[AGGREGATE SUM|MIN|MAX] :计算成员并集和，分数可以按照SUM、min、max汇聚,默认是sum</p>
+</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="C:%5cUsers%5cchenyue%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5c1578496755238.png"
+        data-srcset="C:%5cUsers%5cchenyue%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5c1578496755238.png, C:%5cUsers%5cchenyue%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5c1578496755238.png 1.5x, C:%5cUsers%5cchenyue%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5c1578496755238.png 2x"
+        data-sizes="auto"
+        alt="C:\Users\chenyue\AppData\Roaming\Typora\typora-user-images\1578496755238.png"
+        title="1578496755238" /></p>
+<h4 id="交集-1">交集</h4>
+<p>ZINTERSTORE 命令的用法与 ZUNIONSTORE 命令类似，只不过它是做交集运算，此处不再赘述</p>
+<h4 id="不常用的命令-3">不常用的命令</h4>
+<h4 id="删除在指定片名范围内的元素">删除在指定片名范围内的元素</h4>
+<p><code>ZREMRANGEBYRANK key start stop</code>  用于删除指定排位范围内的成员</p>
+<h4 id="删除在指定分数范围内的元素">删除在指定分数范围内的元素</h4>
+<p><code>ZREMRANGEBUSCORE key min max</code> 命令用于删除指定分数范围内的成员</p>
+<h4 id="增加元素的分数">增加元素的分数</h4>
+<p><code>ZINCRBY key increment member</code> 指定的元素增加分数</p>
+<h3 id="遍历键">遍历键</h3>
+<p>SCAN 命令是从 2.8.0 版本才开始支持的，它和 KEYS 命令有所不同，SCAN 命令是采用渐进的方式遍历键。每次执行 SCAN 命令的时间复杂度是 O(1)，但要真正实现 KEYS 命令的功能，需要执行多次 SCAN 命令</p>
+<p><code>SCAN cursor [match pattern] [COUNT count]</code></p>
+<ul>
+<li>cursor：这是必选项，实际上cursor是一个游标，第一次遍历从0开始，每次执行SCAN命令都会返回当前游标的值，直到游标值为0，表示遍历结束</li>
+<li>MATCH pattern ：这是可选项，它的作用是做模式的匹配，这个KEYS命令的模式类型</li>
+<li>COUNT count：可选项，它的作用是指定每次要遍历的键的个数，默认是10</li>
+</ul>
+<p>假设数据库中有26键，现在要使用SCAN遍历所有的键，第一次执行<code>SCAN 0</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">127.0.0.1:6379&gt; SCAN 0
+1) &#34;22&#34;
+2)  1) &#34;o&#34;
+    2) &#34;f&#34;
+    3) &#34;y&#34;
+    4) &#34;r&#34;
+    5) &#34;i&#34;
+    6) &#34;d&#34;
+    7) &#34;j&#34;
+    8) &#34;t&#34;
+    9) &#34;g&#34;   10) &#34;l
+</code></pre></td></tr></table>
+</div>
+</div><p>返回结果包括两部分：第一部分是游标,22就表示下次需要指定的是SCAN 22;第二部分是10个键</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">127.0.0.1:6379&gt; SCAN 22
+1) &#34;21&#34;
+2)  1) &#34;x&#34;
+    2) &#34;a&#34;
+    3) &#34;p&#34;
+    4) &#34;u&#34;
+    5) &#34;e&#34;
+    6) &#34;v&#34;
+    7) &#34;q&#34;
+    8) &#34;m&#34;
+    9) &#34;k&#34;
+   10) &#34;z&#34;
+</code></pre></td></tr></table>
+</div>
+</div><p>这次得到的cursor是21，继续执行SCAN命令</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">127.0.0.1:6379&gt; SCAN 21
+1) &#34;0&#34;
+2) 1) &#34;c&#34;
+   2) &#34;b&#34;
+   3) &#34;s&#34;
+   4) &#34;n&#34;
+   5) &#34;w&#34;
+   6) &#34;h&#34;
+</code></pre></td></tr></table>
+</div>
+</div><p>现在得到cusor是0，即表示已经遍历所有的键</p>
+<p>除了SCAN命令以为，redis还提供了面向哈希类型、集合类型、有序集合类型的扫描遍历命令，解决诸如HGETTALL、SMEMBERS、ZRANGE可能产生的阻塞问题，对应的命令分别是HSCAN、SSCAN、ZSCAN，它们的用法和SCAN基本类似，已sscan为例:</p>
+<p><code>SSCAN keu corsor [MATCH pattern][COUNT count]</code></p>
+<p>假设现在有个集合，集合包含 26 个元素（26 个英文字母），现在使用 SSCAN 命令遍历集合的所有元素</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">127.0.0.1:6379&gt; SADD myset a b c d e f g h i j k l m n o p q r s t u v w x y z
+(integer) 26
+127.0.0.1:6379&gt; SSCAN myset 0
+1) &#34;14&#34;
+2)  1) &#34;o&#34;
+    2) &#34;f&#34;
+    3) &#34;y&#34;
+    4) &#34;r&#34;
+    5) &#34;i&#34;
+    6) &#34;d&#34;
+    7) &#34;j&#34;
+    8) &#34;t&#34;
+    9) &#34;l&#34;
+   10) &#34;g&#34;
+   11) &#34;x&#34;
+   12) &#34;a&#34;
+   13) &#34;p&#34;
+127.0.0.1:6379&gt; SSCAN myset 14
+1) &#34;7&#34;
+2)  1) &#34;e&#34;
+    2) &#34;u&#34;
+    3) &#34;v&#34;
+    4) &#34;q&#34;
+    5) &#34;m&#34;
+    6) &#34;k&#34;
+    7) &#34;z&#34;
+    8) &#34;c&#34;
+    9) &#34;b&#34;
+   10) &#34;s&#34;
+127.0.0.1:6379&gt; SSCAN myset 7
+1) &#34;0&#34;
+2) 1) &#34;n&#34;
+   2) &#34;h&#34;
+   3) &#34;w&#34;
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="数据库管理">数据库管理</h3>
+<h4 id="切换数据库">切换数据库</h4>
+<p>edis 则是用数字区分不同的数据库。Redis 默认配置是有 16 个数据库，用 0&hellip;15 标识。不同数据库之间的数据没有任何联系，甚至可以存在相同的键。客户端连接 Redis 时，默认使用 0 号数据库。</p>
+<p>SELECT 命令用于切换当前的数据库，它的用法是 <code>SELECT index</code>。下面的操作将当前的数据库切换至 15 号数据库：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">127.0.0.1:6379&gt; SELECT 15
+OK
+</code></pre></td></tr></table>
+</div>
+</div><p>实际开发过程中，不建议使用多数据库，主要是因为:</p>
+<ul>
+<li>Redis 是单线程的。如果使用多个数据库，那么这些数据库仍然是使用一个 CPU，彼此之间还是会受到影响。</li>
+<li>多数据库的使用方式，会让调试和运维不同业务的数据库变得困难。假如有一个慢查询存在，依然会影响其他数据库，这样会使得别的业务方定位问题非常的困难</li>
+<li>部分 Redis 客户端不支持多数据库</li>
+<li>如果需要使用多数据库的功能，完全可以在一台机器上部署多个 Redis 实例，用不同的端口来区分。这样既能保证业务之间不会受到影响，又合理地使用了 CPU 资源</li>
+</ul>
+<h4 id="清空数据库数据">清空数据库数据</h4>
+<h4 id="清空当前数据库数据">清空当前数据库数据</h4>
+<p><code>PLSUSHDB [ASYNC]</code> FLUSHDB 命令用于清空当前数据库的所有数据，如果指定了 ASYNC 选项，那么 Redis 会以异步的方式清空数据。</p>
+<h4 id="清空所有数据库数据">清空所有数据库数据</h4>
+<p><code>FLUSHALL [ASYNC]</code> 会清空所有数据库的数据</p>
+<h4 id="查看当前数据库键的数量">查看当前数据库键的数量</h4>
+<p><code>DBSIZE</code>  返回当前数据库键的数量</p>
+<h3 id="键迁移">键迁移</h3>
+<p>迁移键功能非常重要，开发和运维过程中经常需要将虚数据从一个库迁移到另外一个库中，Redis 发展历程中提供了 MOVE、DUMP + RESTORE、MIGRATE 三组迁移键的方法，它们的实现方式以及使用场景不太相同。</p>
+<h4 id="move">MOVE</h4>
+<p><code>MOVE key db</code></p>
+<p>move命令用于在redis内部进行数据迁移，它的作用是将当前数据库的键key迁移到指定的数据库db</p>
+<p>下面的操作将键 foo 迁移至 15 号数据库</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">127.0.0.1:6379&gt; SET foo &#34;hello&#34;
+OK
+127.0.0.1:6379&gt; MOVE foo 15
+(integer) 1
+127.0.0.1:6379&gt; GET foo
+(nil)
+127.0.0.1:6379&gt; SELECT 15
+OK
+127.0.0.1:6379[15]&gt; GET foo
+&#34;hello&#34;
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="dump--restore">DUMP + RESTORE</h4>
+<p>DUMP的用法是<code>DUMP key</code> ,将以RDB格式序列化指定的键，并返回序列化后的键，这个键可以通过RESTORE命令还原</p>
+<p>RESTORE命令的用法是<code>RESTORE key ttl serialized-value [REPLACE]</code> 它的作用是将序列化的值 serialized-value还原并赋值给键key，ttl用户置顶键的过期时间，ttl=0表示不设置过期时间。如果不指定REPLACE选项，当key原本已经存在，则返回错误信息。从 3.0 以及之后的版本支持 REPLACE 选项，强制覆盖原有的键值。</p>
+<p>通过DUMP+RESTRORE的方式实现在不同redis实例之间进行数据迁移的功能，分为三个步骤：</p>
+<p>1、在源Redis实例上，通过DUMP命令将键序列化</p>
+<p>2、在目标redis实例上，使用RESTORE命令将序列化的值复原</p>
+<p>3、使用DEL命令删除源Redis实例上的键。(不删除则实现了键赋值的功能)</p>
+<p>下面通过一个例子来演示完整的过程:</p>
+<p>1、在源Redis实例(6379上指定序列化键值</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">127.0.0.1:6379&gt; SET foo &#34;hello&#34;
+OK
+127.0.0.1:6379&gt; DUMP foo
+&#34;\x00\x05hello\a\x00\x9c@\n\x85m\xfe\xf5\x10&#34;
+</code></pre></td></tr></table>
+</div>
+</div><p>2、在目标redis实例(6380)上执行RESTORE命令复原键值</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">127.0.0.1:6380&gt; GET foo
+(nil)
+127.0.0.1:6380&gt; RESTORE foo 0 &#34;\x00\x05hello\a\x00\x9c@\n\x85m\xfe\xf5\x10&#34;
+OK
+127.0.0.1:6380&gt; GET foo
+&#34;hello&#34;
+
+</code></pre></td></tr></table>
+</div>
+</div><p>3、删除源Redis实例(6379)上的键：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">127.0.0.1:6379&gt; DEL foo
+(integer) 1
+
+</code></pre></td></tr></table>
+</div>
+</div><p>使用DUMP + RESTORE方式进行数据迁移，有集合点需要注意</p>
+<ul>
+<li>为了方便演示，上面的例子使用同一台机器上的两个 Redis 实例，不同机器的 Redis 实例也是一样可以实现的</li>
+<li>DUMP + RESTORE + DEL 的过程不是原子的，而是通过客户端分步完成的。</li>
+<li>迁移的过程是开启了两个客户端连接，所以这并不是一个数据传输的过程</li>
+</ul>
+<h4 id="migrate">MIGRATE</h4>
+<p>MIGRATE命令也是用于在redis实例之间进行数据库迁移，实际上，MIGRATE命令是将DUMP+ RESTORE + DEL三个命令进行组合，从而简化了操作流程。MIGRATE命令具有原子性，而且从 3.0.6 版本开始支持同时迁移多个键的功能，提高了迁移效率。</p>
+<p><code>MIGRATE host port key|&quot;&quot; destination-db timeout [COPY] [REPLACE] [KEYS key [key ...]]</code></p>
+<ul>
+<li>host : 目标redis的ip地址</li>
+<li>port：目标redis的端口号</li>
+<li>key|&quot;&quot;：在redis3.0.6版本之前，MIGRATE命令只会支持迁移一个键，所以此处是要迁移的键。但是redis3.0.3版本开始支持迁移多个键，如果需要迁移多个键，此处用空字符&quot;&quot;</li>
+<li>destination-db:目标redis的数据库索引</li>
+<li>timeout：迁移的超时时间，单位是毫秒</li>
+<li>COPY:如果指定此选项，迁移后不删除源键</li>
+<li>REPLACE：如果指定此选项，不管目标redis的数据中心存在该键，则会强制覆盖键值</li>
+<li>[ KEYS key[key&hellip;]]:迁移多个键</li>
+</ul>
+<p>下面的操作演示将一个键值复制到目标 Redis 实例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">127.0.0.1:6379&gt; SET foo &#34;hello&#34;
+OK
+127.0.0.1:6379&gt; MIGRATE 127.0.0.1 6380 foo 0 1000 COPY REPLACE
+OK
+
+</code></pre></td></tr></table>
+</div>
+</div><p>下面的操作演示将多个键值迁移到目标 Redis 实例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">127.0.0.1:6379&gt; MIGRATE 127.0.0.1 6380 &#34;&#34; 0 1000 REPLACE KEYS foo bar baz
+OK
+
+</code></pre></td></tr></table>
+</div>
+</div><p>三方式的异同点:</p>
+<p>下表总结了 MOVE、DUMP + RESTORE、MIGRATE 这三种数据迁移方式的异同点</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用域</th>
+<th>原子性</th>
+<th>支持多个键</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MOVE</td>
+<td>redis实例内部</td>
+<td>是</td>
+<td>否</td>
+</tr>
+<tr>
+<td>DUMP+RESTORE</td>
+<td>redis实例之间</td>
+<td>否</td>
+<td>否</td>
+</tr>
+<tr>
+<td>MIGRATE</td>
+<td>redis实例之间</td>
+<td>是</td>
+<td>是</td>
+</tr>
+</tbody>
+</table>
+<h3 id="内部编码">内部编码</h3>
+<h4 id="字符串-1">字符串</h4>
+<p>字符串类型的内部编码有三种</p>
+<ul>
+<li>int：8 个字节的长整型</li>
+<li>embstr：小于等于 44 个字节的字符串。(注：不同版本的 Redis 可能取不同的值，有的版本是 39 字节，这个取值定义在源码 object.c 文件中的 OBJ_ENCODING_EMBSTR_SIZE_LIMIT)</li>
+<li>raw：大于44个字节的字符串</li>
+</ul>
+<p>Redis 会根据字符串的键值决定使用的内部编码实现</p>
+<h4 id="哈希-1">哈希</h4>
+<p>哈希类型的内部编码有两种</p>
+<ul>
+<li>ziplist（压缩列表）：当哈希类型的元素个数小于 hash-max-ziplist-entries 配置（默认 512 个），同时所有值都小于 hash-max-ziplist-value 配置（默认 64 字节）时，Redis 会使用 ziplist 作为哈希的内部实现。ziplist 使用更加紧凑的结构实现多个元素的连续存储，在节省内存方面比 hashtable 更为优秀</li>
+<li>hashtable（哈希表）：当哈希类型的键值无法满足 ziplist 的条件时，Redis 会使用 hashtable 作为哈希的内部实现。hashtable 的读写时间复杂度为 O(1)，读写效率比 ziplist 更优</li>
+</ul>
+<h4 id="列表-1">列表</h4>
+<p>列表类型的内部编码有两种：</p>
+<ul>
+<li>intset：当集合中的元素都是整数且元素个数小于 set-max-intset-entries 配置（默认 512 个）时，Redis 会选用 intset</li>
+<li>hashtable（哈希表）：当集合类型的键值无法满足 intset 的条件时，Redis 会使用 hashtable 作为列表的内部实现</li>
+</ul>
+<h4 id="有序集合-1">有序集合</h4>
+<p>有序集合类型的内部编码有两种</p>
+<ul>
+<li>ziplist（压缩列表）：当有序集合的元素个数小于 zset-max-ziplist-entries 配置（默认 128 个），同时每个元素的值都小于 zset-max-ziplist-value 配置（默认 64 字节）时，Redis 会使用 ziplist 来作为有序集合的内部实现</li>
+<li>skiplist（跳跃表）：当有序集合类型的键值无法满足 ziplist 的条件时，Redis 会使用 skiplist 作为有序集合的内部实现</li>
+</ul>
+<h3 id="redis慢查询分析">Redis慢查询分析</h3>
+<p>许多存储系统（例如 MySQL）提供慢查询日志帮助开发和运维人员定位系统存在的慢操作。所谓的慢查询日志就是系统在命令执行前后计算每条命令的执行时间，当超过预设阈值，就想这条命了的相关信息（如发生时间、耗时、命令详情等）记录下来，Redis 也提供了类似的功能</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="C:%5cUsers%5cchenyue%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5c1578500355349.png"
+        data-srcset="C:%5cUsers%5cchenyue%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5c1578500355349.png, C:%5cUsers%5cchenyue%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5c1578500355349.png 1.5x, C:%5cUsers%5cchenyue%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5c1578500355349.png 2x"
+        data-sizes="auto"
+        alt="C:\Users\chenyue\AppData\Roaming\Typora\typora-user-images\1578500355349.png"
+        title="1578500355349" /></p>
+<p>如上图所示，Redis客户端执行了一条命令分为如下4个部分:</p>
+<p>1、发送命令</p>
+<p>2、命令排队</p>
+<p>3、命令执行</p>
+<p>4、返回结果</p>
+<p>需要注意的是，慢查询只统计命令执行这一步骤的时间，所以没有慢查询并不代表客户端没有超时问题</p>
+<h4 id="参数配置">参数配置</h4>
+<p>Redis 提供了两个与慢查询相关的配置：slowlog-log-slower-than 和 slowlog-max-len。slowlog-log-slower-than 用于配置预设阈值，它的单位是微秒，默认值是 10000</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">127.0.0.1:6379&gt; CONFIG GET slowlog-log-slower-than
+1) &#34;slowlog-log-slower-than&#34;
+2) &#34;10000&#34;
+
+</code></pre></td></tr></table>
+</div>
+</div><p>如果一条命令的执行时间超过了预设阈值，那么它将被记录在慢查询日志中。如果 slowlog-log-slower-than = 0，则会记录所有的命令；如果 slowlog-log-slower-than &lt; 0，则不会记录任何命令。</p>
+<p>Redis 使用了一个列表来存储慢查询日志，slowlog-max-len 用于配置这个列表的最大长度。 一个命令满足慢查询条件时，就会被追加到这个列表中，当慢查询日志列表已处于其最大长度时，再有新的慢查询命令时，列表头部的第一条数据就会出列，新的数据就会入列。</p>
+<p>在 Redis 中有两种修改配置的方法：一种是修改配置文件，另一种是使用 <code>CONFIG SET</code> 命令动态修改。例如，下面的命令将 slowlog-log-slower-than 设置成 20000 微秒，slowlog-max-len 设置成 1000:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">127.0.0.1:6379&gt; CONFIG SET slowlog-log-slower-than 20000
+OK
+127.0.0.1:6379&gt; CONFIG SET slowlog-max-len 1000
+OK
+127.0.0.1:6379&gt; CONFIG REWRITE
+OK
+
+</code></pre></td></tr></table>
+</div>
+</div><p><code>CONFIG REWRITE</code> 命令能够将修改的配置持久化到本地配置文件</p>
+<h4 id="常用的命令-4">常用的命令</h4>
+<p>虽然慢查询是存放在 Redis 内存列表中的，但是 Rediscover 并没有暴露这个列表的键，而是通过一组命令来实现对慢查询日志的访问和管理。</p>
+<p>获取慢查询日志</p>
+<p><code>SLOWLOG GET [n]</code> 命令可以查询当前 Redis 的慢查询日志列表，参数 n 可以指定条数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">127.0.0.1:6379&gt; SLOWLOG GET
+1) 1) (integer) 1
+   2) (integer) 1533872710
+   3) (integer) 5
+   4) 1) &#34;KEYS&#34;
+      2) &#34;*&#34;
+2) 1) (integer) 0
+   2) (integer) 1533872692
+   3) (integer) 4
+   4) 1) &#34;CONFIG&#34;
+      2) &#34;SET&#34;
+      3) &#34;slowlog-log-slower-than&#34;
+      4) &#34;0&#34;
+
+</code></pre></td></tr></table>
+</div>
+</div><p>可以看到每个慢查询日志由 4 个属性组成，分别是慢查询日志的标识ID、命令执行时的时间戳、命令耗时和命令内容。</p>
+<h4 id="获取慢查询日志列表的长度">获取慢查询日志列表的长度</h4>
+<p><code>SLOWLOG LEN</code> 查询慢查询列表当前的长度</p>
+<h4 id="重置慢查询列表">重置慢查询列表</h4>
+<p><code>SLOWLOG RESET</code> 可以重置慢查询日志列表，即对列表做情况操作</p>
+<h3 id="最佳实践">最佳实践</h3>
+<p>慢查询功能可以有效地帮助开发和运维人员找到 Redis 可能存在的瓶颈，但在实际使用过程中要注意以下几点</p>
+<ul>
+<li>slowlog-max-len 配置建议：线上建议调大慢查询列表，这样可以减少慢查询被剔除的可能，例如线上可以设置为 1000 以上</li>
+<li>slowlog-log-slower-than 配置建议：默认超过 10 毫秒判定为慢查询，需要根据 Redis 的并发量调整该值。由于 Redis 采用单线程响应命令，对于高流量的场景，如果命令执行时间在 1 毫秒以上，那么 Redis 最多可支撑 OPS（Operation Per Second）不到 1000。因此，对于高 OPS 场景的 Redis，建议设置为 1 毫秒。</li>
+<li>慢查询只记录命令执行时间，并不包括命令排队和网络传输时间。因此，客户端执行命令的时间会大雨命令实际执行时间。因为命令执行排队机制，慢查询会导致其他命令级联阻塞，因此当客户端出现请求超时，需要检查该时间点是否有对应的慢查询，从而分析是否为慢查询导致的命令级联阻塞。</li>
+<li>由于慢查询日志是一个先进先出的队列，当慢查询比较多的情况下，可能会丢失部分慢查询命令。为了防止这种情况发生，可以定期执行 SLOW GET 命令将慢查询日志持久化到其他存储中（如 MySQL），然后可以制作可视化界面进行查询。</li>
+</ul>
+<h3 id="pipeline">Pipeline</h3>
+<p>Redis客户端执行一条命令分为如下四个过程:</p>
+<p>1、发送命令</p>
+<p>2、命令排队</p>
+<p>3、命令执行</p>
+<p>4、返回结果</p>
+<p>其中，步骤1和4称为Round Trip Time(往返时间)</p>
+<p>在执行多个命令时，每条命令都需要等待上一条命令执行完（即收到 Redis 的返回结果）才能执行，即使命令不需要上一条命令的结果。Redis 提供的批量操作命令（如 MGET、MSET 等），有效地节约 RTT。但大部分的命令是不支持批量操作的。例如要批量删除若干个键，并没有 MDEL 命令操作，分 n 次执行 DEL 命令，需要消耗 n 次 RTT。受限于网络性能，多个命令的 RTT 累加起来对性能还是有一定的影响的。</p>
+<p>Redis 的 Pipeline 机制能够改善上面这类问题，它能将一组 Redis 命令进行组装，通过一次 RTT 传输给 Redis，再将这组 Redis 命令的执行结果按顺序返回给客户端。</p>
+<p>Pipeline 虽然好用，但是每次 Pipeline 组装的命令个数不能没有节制，否则一次组装 Pipeline 数据量过大，一方面会增加客户端的等待时间，另一方面也会造成一定的网络阻塞，可以将一次包含大量命令的 Pipeline 拆分成多次较小的 Pipeline 来完成。</p>
+<p>redis-cli 的 &ndash;pipe 选项可以使用 Pipeline。但通常情况下，我们并不会在 redis-cli 在使用 Pipeline，而是倾向于使用高级语言客户端的 Pipeline。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2020-10-16</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/redis_command/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://example.com/redis_command/" data-title="redis 基础命令" data-hashtags="命令"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://example.com/redis_command/" data-hashtag="命令"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://example.com/redis_command/" data-title="redis 基础命令"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://example.com/redis_command/" data-title="redis 基础命令"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://example.com/redis_command/" data-title="redis 基础命令" data-ralateuid="xxxx"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E5%91%BD%E4%BB%A4/">命令</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+            <a href="/firsthugoblog/" class="next" rel="next" title="My First Hugo Blog">My First Hugo Blog<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
+            </noscript><div id="gitalk" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
+            </noscript><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.76.5">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">chenyue233</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.6.2/dist/gitalk.min.css"><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="https://.disqus.com/embed.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/gitalk@1.6.2/dist/gitalk.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/typeit@7.0.4/dist/typeit.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"gitalk":{"admin":[""],"clientID":"","clientSecret":"","id":"2020-10-16T13:22:48+08:00","owner":"","repo":"","title":"redis 基础命令"},"valine":{"appId":"UukRd1XJWBJ4PRmPLROEeskC-9Nh9j0Va","appKey":"lq8ovkbVXBB9XKQYTpE4YpMo","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"你的评论 ...","recordIP":true,"serverURLs":"https://uukrd1xj.lc-cn-e1-shared.com","visitor":true}},"data":{"id-1":"chenyue233","id-2":"chenyue233"},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.zh-cn","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

@@ -20,10 +20,12 @@
                     hreflang="zh-cn"
                     href="https://example.com/"
                     /></url><url>
+            <loc>https://example.com/git_command/</loc><lastmod>2020-10-16T13:22:48&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
             <loc>https://example.com/firsthugoblog/</loc><lastmod>2020-10-19T14:54:56&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
             <loc>https://example.com/tags/others/</loc><lastmod>2020-10-19T14:54:56&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
             <loc>https://example.com/categories/others/</loc><lastmod>2020-10-19T14:54:56&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
             <loc>https://example.com/posts/</loc><lastmod>2020-10-19T14:54:56&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://example.com/redis_command/</loc><lastmod>2020-10-16T13:22:48&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
             <loc>https://example.com/tags/</loc><lastmod>2020-10-19T14:54:56&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
@@ -32,4 +34,6 @@
                     rel="alternate"
                     hreflang="zh-cn"
                     href="https://example.com/tags/"
-                    /></url></urlset>
+                    /></url><url>
+            <loc>https://example.com/tags/%E5%91%BD%E4%BB%A4/</loc><lastmod>2020-10-16T13:22:48&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://example.com/categories/%E5%91%BD%E4%BB%A4/</loc><lastmod>2020-10-16T13:22:48&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url></urlset>
