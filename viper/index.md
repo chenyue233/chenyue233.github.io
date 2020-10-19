@@ -1,20 +1,21 @@
 # Golang使用viper读取配置,修改实时生效
 
 
-## Viper介绍
-#### Viper是大佬在github开源的由golang编写的读取配置的解决方案。
-#### github地址: <https://github.com/spf13/viper>
-#### 支持从多种格式文件中读取配置，实时观看和重新读取配置，支持设置默认值、从环境变量读取、从命令行读取、从文件流中读取等。
+### Viper介绍
 
-#### 读取配置的优先级:
+###### Viper是大佬在github开源的由golang编写的读取配置的解决方案。
+###### github地址: <https://github.com/spf13/viper>
+###### 支持从多种格式文件中读取配置，实时观看和重新读取配置，支持设置默认值、从环境变量读取、从命令行读取、从文件流中读取等。
+###### 读取配置的优先级:
 - 通过方法SET的配置值
 - 命令行设置的配置值
 - 环境变量
 - 配置文件读取
 - 默认值
   
-## 实践:
-#### 配置文件 settings.yml
+### 实践:
+
+###### 配置文件 settings.yml
 ``` yml
 application:
   # dev开发环境 test测试环境 prod线上环境
@@ -33,11 +34,11 @@ database:
 redis:
   addr: 127.0.0.1:6379
   poolSize: 500
-  password: "123456"
+  password: 123456
   db: 0
 ```
 
-#### 读取配置文件代码
+###### 读取配置文件代码
 
 ```golang
 package config
@@ -105,8 +106,9 @@ func Setup(path string) {
 }
 ```
 
-## 源码解读
-#### viper.SetConfigFile(path)
+### 源码解读
+
+###### viper.SetConfigFile(path)
 
 ``` golang
 // SetConfigFile explicitly defines the path, name and extension of the config file.
@@ -124,8 +126,7 @@ func (v *Viper) SetConfigFile(in string) {
 如果配置文件settings.yml所在地址为project/settings.yml,直接传入setting.yml即可。  
 如果配置文件所在的地址为project/config/settings.yml,则需要传入参数config/settings.yml。
 
-## 源码解读
-#### viper.SetConfigType(configFileType)
+###### viper.SetConfigType(configFileType)
 
 ```golang
 
@@ -141,8 +142,7 @@ func (v *Viper) SetConfigType(in string) {
 
 接受一个string类型的参数，参数为配置文件的类型，将接收到的参数赋值给viper实例的configType。
 
-## 源码解读
-#### viper.WatchConfig()
+###### viper.WatchConfig()
 
 ```golang
 
@@ -278,9 +278,9 @@ currentConfigFile != "" && currentConfigFile != realConfigFile， currentConfigF
 
 符合以上条件了就说明配置文件发生了修改或者创建的变化，通过ReadInConfig重写加载配置到viper实例中。如果存在回调函数onConfigChange，就调用一次回调函数。
 
-## 调用
+### 调用
 
-### 为GlobalConfig 赋值
+###### 为GlobalConfig 赋值
 ```golang
 package main
 
@@ -291,7 +291,7 @@ func mian(){
 在main函数调用setup函数为GlobalConfig赋值，就可以直接使用GlobalConfig读取配置了。
 
 
-### 使用GlobalConfig 初始化redis配置
+###### 使用GlobalConfig 初始化redis配置
 
 ```golang
 package cache
