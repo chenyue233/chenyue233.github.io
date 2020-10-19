@@ -12,6 +12,13 @@
     <guid>https://example.com/git_command/</guid>
     <description><![CDATA[在本地清理远程已被删除的分支 git remote prune origin 检查配置信息 git config --list 在已存在的目录中初始化仓库 git init (在该项目目录下) 跟踪指定文件(添加问价到暂存区) git add 文]]></description>
 </item><item>
+    <title>Golang使用viper读取配置,修改实时生效</title>
+    <link>https://example.com/golang%E4%BD%BF%E7%94%A8viper%E8%AF%BB%E5%8F%96%E9%85%8D%E7%BD%AE%E4%BF%AE%E6%94%B9%E5%AE%9E%E6%97%B6%E7%94%9F%E6%95%88/</link>
+    <pubDate>Fri, 16 Oct 2020 13:22:48 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://example.com/golang%E4%BD%BF%E7%94%A8viper%E8%AF%BB%E5%8F%96%E9%85%8D%E7%BD%AE%E4%BF%AE%E6%94%B9%E5%AE%9E%E6%97%B6%E7%94%9F%E6%95%88/</guid>
+    <description><![CDATA[Viper介绍 Viper是大佬在github开源的由golang编写的读取配置的解决方案。 github地址: https://github.com/spf13/viper 支持从多种格式文件中读取配置，]]></description>
+</item><item>
     <title>My First Hugo Blog</title>
     <link>https://example.com/firsthugoblog/</link>
     <pubDate>Fri, 16 Oct 2020 13:22:48 &#43;0800</pubDate>
