@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Golang使用viper读取配置,修改实时生效 - chenyue233</title><meta name="Description" content="使用第三方包读取配置文件"><meta property="og:title" content="Golang使用viper读取配置,修改实时生效" />
+<meta property="og:description" content="使用第三方包读取配置文件" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://example.com/viper/" />
+<meta property="og:image" content="https://example.com/logo.png"/>
+<meta property="article:published_time" content="2020-10-16T13:22:48+08:00" />
+<meta property="article:modified_time" content="2020-10-19T18:21:39+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://example.com/logo.png"/>
+
+<meta name="twitter:title" content="Golang使用viper读取配置,修改实时生效"/>
+<meta name="twitter:description" content="使用第三方包读取配置文件"/>
+<meta name="application-name" content="chenyue233">
+<meta name="apple-mobile-web-app-title" content="chenyue233"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://example.com/viper/" /><link rel="prev" href="https://example.com/firsthugoblog/" /><link rel="next" href="https://example.com/git_command/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Golang使用viper读取配置,修改实时生效",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/example.com\/viper\/"
+        },"image": ["https:\/\/example.com\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "golang","wordcount":  2572 ,
+        "url": "https:\/\/example.com\/viper\/","datePublished": "2020-10-16T13:22:48+08:00","dateModified": "2020-10-19T18:21:39+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/example.com\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "chenyue233"
+            },"description": "使用第三方包读取配置文件"
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="chenyue233"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/categories/documentation/"> 文档 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/chenyue233/myhugo" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/viper/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="chenyue233"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/categories/documentation/" title="">文档</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/chenyue233/myhugo" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/viper/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Golang使用viper读取配置,修改实时生效</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>chenyue233</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/golang/"><i class="far fa-folder fa-fw"></i>golang</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-10-16">2020-10-16</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2572 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟&nbsp;<span id="/viper/" class="leancloud_visitors" data-flag-title="Golang使用viper读取配置,修改实时生效">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#viper介绍">Viper介绍</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#viper是大佬在github开源的由golang编写的读取配置的解决方案">Viper是大佬在github开源的由golang编写的读取配置的解决方案。</a></li>
+            <li><a href="#github地址-httpsgithubcomspf13viper">github地址: <a href="https://github.com/spf13/viper">https://github.com/spf13/viper</a></a></li>
+            <li><a href="#支持从多种格式文件中读取配置实时观看和重新读取配置支持设置默认值从环境变量读取从命令行读取从文件流中读取等">支持从多种格式文件中读取配置，实时观看和重新读取配置，支持设置默认值、从环境变量读取、从命令行读取、从文件流中读取等。</a></li>
+            <li><a href="#读取配置的优先级">读取配置的优先级:</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#实践">实践:</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#配置文件-settingsyml">配置文件 settings.yml</a></li>
+            <li><a href="#读取配置文件代码">读取配置文件代码</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#源码解读">源码解读</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#vipersetconfigfilepath">viper.SetConfigFile(path)</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#源码解读-1">源码解读</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#vipersetconfigtypeconfigfiletype">viper.SetConfigType(configFileType)</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#源码解读-2">源码解读</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#viperwatchconfig">viper.WatchConfig()</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#调用">调用</a>
+      <ul>
+        <li><a href="#为globalconfig-赋值">为GlobalConfig 赋值</a></li>
+        <li><a href="#使用globalconfig-初始化redis配置">使用GlobalConfig 初始化redis配置</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="viper介绍">Viper介绍</h2>
+<h4 id="viper是大佬在github开源的由golang编写的读取配置的解决方案">Viper是大佬在github开源的由golang编写的读取配置的解决方案。</h4>
+<h4 id="github地址-httpsgithubcomspf13viper">github地址: <a href="https://github.com/spf13/viper">https://github.com/spf13/viper</a></h4>
+<h4 id="支持从多种格式文件中读取配置实时观看和重新读取配置支持设置默认值从环境变量读取从命令行读取从文件流中读取等">支持从多种格式文件中读取配置，实时观看和重新读取配置，支持设置默认值、从环境变量读取、从命令行读取、从文件流中读取等。</h4>
+<h4 id="读取配置的优先级">读取配置的优先级:</h4>
+<ul>
+<li>通过方法SET的配置值</li>
+<li>命令行设置的配置值</li>
+<li>环境变量</li>
+<li>配置文件读取</li>
+<li>默认值</li>
+</ul>
+<h2 id="实践">实践:</h2>
+<h4 id="配置文件-settingsyml">配置文件 settings.yml</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="nt">application</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="c"># dev开发环境 test测试环境 prod线上环境</span><span class="w">
+</span><span class="w">  </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l">dev</span><span class="w">
+</span><span class="w">  </span><span class="c"># 服务器ip，默认使用 0.0.0.0</span><span class="w">
+</span><span class="w">  </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="m">0.0.0.0</span><span class="w">
+</span><span class="w">  </span><span class="c"># 服务名称</span><span class="w">
+</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">test</span><span class="w">
+</span><span class="w">  </span><span class="c"># 服务端口号</span><span class="w">
+</span><span class="w">  </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="m">8088</span><span class="w">
+</span><span class="w"></span><span class="nt">database</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="c"># 数据库类型 mysql，sqlite3， postgres</span><span class="w">
+</span><span class="w">  </span><span class="nt">driver</span><span class="p">:</span><span class="w"> </span><span class="l">mysql</span><span class="w">
+</span><span class="w">  </span><span class="c"># 数据库连接字符串 mysql 缺省信息 charset=utf8&amp;parseTime=True&amp;loc=Local&amp;timeout=1000ms</span><span class="w">
+</span><span class="w">  </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l">root:123456@tcp(127.0.0.1:3306)/test?charset=utf8&amp;parseTime=True&amp;loc=Local&amp;timeout=1000ms</span><span class="w">
+</span><span class="w"></span><span class="nt">redis</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">addr</span><span class="p">:</span><span class="w"> </span><span class="m">127.0.0.1</span><span class="p">:</span><span class="m">6379</span><span class="w">
+</span><span class="w">  </span><span class="nt">poolSize</span><span class="p">:</span><span class="w"> </span><span class="m">500</span><span class="w">
+</span><span class="w">  </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;123456&#34;</span><span class="w">
+</span><span class="w">  </span><span class="nt">db</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h4 id="读取配置文件代码">读取配置文件代码</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-golang" data-lang="golang"><span class="kn">package</span> <span class="nx">config</span>
+
+<span class="kd">const</span> <span class="p">(</span>
+    <span class="c1">// 指定配置文件后缀
+</span><span class="c1"></span>    <span class="nx">configFileType</span> <span class="p">=</span> <span class="s">&#34;yml&#34;</span>
+<span class="p">)</span>
+
+<span class="c1">// 初始化全局config实例
+</span><span class="c1"></span><span class="kd">var</span> <span class="nx">GlobalConfig</span> <span class="p">=</span> <span class="nb">new</span><span class="p">(</span><span class="nx">Config</span><span class="p">)</span>
+
+<span class="c1">//Config 配置struct
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">Config</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">Application</span> <span class="s">`mapstructure:&#34;application&#34;`</span>
+    <span class="nx">Database</span>    <span class="s">`mapstructure:&#34;database&#34;`</span>
+    <span class="nx">Redis</span>       <span class="s">`mapstructure:&#34;redis&#34;`</span>
+<span class="p">}</span>
+
+<span class="c1">//Application 应用基本信息
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">Application</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">Host</span> <span class="kt">string</span> <span class="s">`mapstructure:&#34;host&#34;`</span>
+    <span class="nx">Port</span> <span class="kt">string</span> <span class="s">`mapstructure:&#34;port&#34;`</span>
+    <span class="nx">Name</span> <span class="kt">string</span> <span class="s">`mapstructure:&#34;name&#34;`</span>
+    <span class="nx">Mode</span> <span class="kt">string</span> <span class="s">`mapstructure:&#34;mode&#34;`</span>
+<span class="p">}</span>
+
+<span class="c1">//Database 数据库
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">Database</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">Driver</span> <span class="kt">string</span> <span class="s">`mapstructure:&#34;driver&#34;`</span>
+    <span class="nx">Source</span> <span class="kt">string</span> <span class="s">`mapstructure:&#34;source&#34;`</span>
+<span class="p">}</span>
+<span class="c1">//Redis 缓存数据库
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">Redis</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">Addr</span>     <span class="kt">string</span> <span class="s">`mapstructure:&#34;addr&#34;`</span>
+    <span class="nx">PoolSize</span> <span class="kt">int</span>    <span class="s">`mapstructure:&#34;poolSize&#34;`</span>
+    <span class="nx">Password</span> <span class="kt">string</span> <span class="s">`mapstructure:&#34;password&#34;`</span>
+    <span class="nx">DB</span>       <span class="kt">int</span>    <span class="s">`mapstructure:&#34;db&#34;`</span>
+<span class="p">}</span>
+
+
+<span class="c1">//Setup 配置初始化
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">Setup</span><span class="p">(</span><span class="nx">path</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// 初始化 viper 配置
+</span><span class="c1"></span>    <span class="nx">viper</span><span class="p">.</span><span class="nf">SetConfigFile</span><span class="p">(</span><span class="nx">path</span><span class="p">)</span>
+    <span class="nx">viper</span><span class="p">.</span><span class="nf">SetConfigType</span><span class="p">(</span><span class="nx">configFileType</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">viper</span><span class="p">.</span><span class="nf">ReadInConfig</span><span class="p">();</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+    <span class="nb">panic</span><span class="p">(</span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;读取配置文件失败，请检查 settings.yml 配置文件是否存在: %v&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">))</span>
+    <span class="p">}</span>
+    <span class="c1">// 将读取的配置信息保存至全局变量Conf
+</span><span class="c1"></span>    <span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">viper</span><span class="p">.</span><span class="nf">Unmarshal</span><span class="p">(</span><span class="nx">GlobalConfig</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+    <span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;unmarshal conf failed, err:%s \n&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="c1">// 监听配置文件修改
+</span><span class="c1"></span>
+    <span class="nx">viper</span><span class="p">.</span><span class="nf">WatchConfig</span><span class="p">()</span>
+    <span class="c1">// 注意！！！配置文件发生变化后要同步到全局变量Conf
+</span><span class="c1"></span>    <span class="nx">viper</span><span class="p">.</span><span class="nf">OnConfigChange</span><span class="p">(</span><span class="kd">func</span><span class="p">(</span><span class="nx">in</span> <span class="nx">fsnotify</span><span class="p">.</span><span class="nx">Event</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;夭寿啦~有人正在修改配置文件&#34;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">viper</span><span class="p">.</span><span class="nf">Unmarshal</span><span class="p">(</span><span class="nx">GlobalConfig</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+      <span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;unmarshal conf failed, err:%s \n&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="p">})</span>
+
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="源码解读">源码解读</h2>
+<h4 id="vipersetconfigfilepath">viper.SetConfigFile(path)</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-golang" data-lang="golang"><span class="c1">// SetConfigFile explicitly defines the path, name and extension of the config file.
+</span><span class="c1">// Viper will use this and not check any of the config paths.
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">SetConfigFile</span><span class="p">(</span><span class="nx">in</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span> <span class="nx">v</span><span class="p">.</span><span class="nf">SetConfigFile</span><span class="p">(</span><span class="nx">in</span><span class="p">)</span> <span class="p">}</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">v</span> <span class="o">*</span><span class="nx">Viper</span><span class="p">)</span> <span class="nf">SetConfigFile</span><span class="p">(</span><span class="nx">in</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="nx">in</span> <span class="o">!=</span> <span class="s">&#34;&#34;</span> <span class="p">{</span>
+  <span class="nx">v</span><span class="p">.</span><span class="nx">configFile</span> <span class="p">=</span> <span class="nx">in</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>接收一个string类型的参数,参数为配置文件存放的相对路径,将接受到的参数赋值给viper实例的configFile。<br>
+如果配置文件settings.yml所在地址为project/settings.yml,直接传入setting.yml即可。<br>
+如果配置文件所在的地址为project/config/settings.yml,则需要传入参数config/settings.yml。</p>
+<h2 id="源码解读-1">源码解读</h2>
+<h4 id="vipersetconfigtypeconfigfiletype">viper.SetConfigType(configFileType)</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-golang" data-lang="golang">
+<span class="c1">// SetConfigType sets the type of the configuration returned by the
+</span><span class="c1">// remote source, e.g. &#34;json&#34;.
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">SetConfigType</span><span class="p">(</span><span class="nx">in</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span> <span class="nx">v</span><span class="p">.</span><span class="nf">SetConfigType</span><span class="p">(</span><span class="nx">in</span><span class="p">)</span> <span class="p">}</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">v</span> <span class="o">*</span><span class="nx">Viper</span><span class="p">)</span> <span class="nf">SetConfigType</span><span class="p">(</span><span class="nx">in</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="nx">in</span> <span class="o">!=</span> <span class="s">&#34;&#34;</span> <span class="p">{</span>
+  <span class="nx">v</span><span class="p">.</span><span class="nx">configType</span> <span class="p">=</span> <span class="nx">in</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>接受一个string类型的参数，参数为配置文件的类型，将接收到的参数赋值给viper实例的configType。</p>
+<h2 id="源码解读-2">源码解读</h2>
+<h4 id="viperwatchconfig">viper.WatchConfig()</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-golang" data-lang="golang">
+<span class="kd">func</span> <span class="nf">WatchConfig</span><span class="p">()</span> <span class="p">{</span> <span class="nx">v</span><span class="p">.</span><span class="nf">WatchConfig</span><span class="p">()</span> <span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">v</span> <span class="o">*</span><span class="nx">Viper</span><span class="p">)</span> <span class="nf">WatchConfig</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">initWG</span> <span class="o">:=</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span><span class="p">{}</span>
+  <span class="nx">initWG</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+  <span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">watcher</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">fsnotify</span><span class="p">.</span><span class="nf">NewWatcher</span><span class="p">()</span>
+  <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+    <span class="nx">log</span><span class="p">.</span><span class="nf">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+  <span class="p">}</span>
+  <span class="k">defer</span> <span class="nx">watcher</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
+  <span class="c1">// we have to watch the entire directory to pick up renames/atomic saves in a cross-platform way
+</span><span class="c1"></span>  <span class="nx">filename</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">v</span><span class="p">.</span><span class="nf">getConfigFile</span><span class="p">()</span>
+  <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+    <span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;error: %v\n&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+    <span class="nx">initWG</span><span class="p">.</span><span class="nf">Done</span><span class="p">()</span>
+    <span class="k">return</span>
+  <span class="p">}</span>
+
+  <span class="nx">configFile</span> <span class="o">:=</span> <span class="nx">filepath</span><span class="p">.</span><span class="nf">Clean</span><span class="p">(</span><span class="nx">filename</span><span class="p">)</span>
+  <span class="nx">configDir</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">filepath</span><span class="p">.</span><span class="nf">Split</span><span class="p">(</span><span class="nx">configFile</span><span class="p">)</span>
+  <span class="nx">realConfigFile</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">filepath</span><span class="p">.</span><span class="nf">EvalSymlinks</span><span class="p">(</span><span class="nx">filename</span><span class="p">)</span>
+
+  <span class="nx">eventsWG</span> <span class="o">:=</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span><span class="p">{}</span>
+  <span class="nx">eventsWG</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+  <span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+	<span class="k">for</span> <span class="p">{</span>
+		<span class="k">select</span> <span class="p">{</span>
+		<span class="k">case</span> <span class="nx">event</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">watcher</span><span class="p">.</span><span class="nx">Events</span><span class="p">:</span>
+			<span class="k">if</span> <span class="p">!</span><span class="nx">ok</span> <span class="p">{</span> <span class="c1">// &#39;Events&#39; channel is closed
+</span><span class="c1"></span>				<span class="nx">eventsWG</span><span class="p">.</span><span class="nf">Done</span><span class="p">()</span>
+				<span class="k">return</span>
+			<span class="p">}</span>
+			<span class="nx">currentConfigFile</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">filepath</span><span class="p">.</span><span class="nf">EvalSymlinks</span><span class="p">(</span><span class="nx">filename</span><span class="p">)</span>
+			<span class="c1">// we only care about the config file with the following cases:
+</span><span class="c1"></span>			<span class="c1">// 1 - if the config file was modified or created
+</span><span class="c1"></span>			<span class="c1">// 2 - if the real path to the config file changed (eg: k8s ConfigMap replacement)
+</span><span class="c1"></span>			<span class="kd">const</span> <span class="nx">writeOrCreateMask</span> <span class="p">=</span> <span class="nx">fsnotify</span><span class="p">.</span><span class="nx">Write</span> <span class="p">|</span> <span class="nx">fsnotify</span><span class="p">.</span><span class="nx">Create</span>
+			<span class="k">if</span> <span class="p">(</span><span class="nx">filepath</span><span class="p">.</span><span class="nf">Clean</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">Name</span><span class="p">)</span> <span class="o">==</span> <span class="nx">configFile</span> <span class="o">&amp;&amp;</span>
+				<span class="nx">event</span><span class="p">.</span><span class="nx">Op</span><span class="o">&amp;</span><span class="nx">writeOrCreateMask</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">||</span>
+				<span class="p">(</span><span class="nx">currentConfigFile</span> <span class="o">!=</span> <span class="s">&#34;&#34;</span> <span class="o">&amp;&amp;</span> <span class="nx">currentConfigFile</span> <span class="o">!=</span> <span class="nx">realConfigFile</span><span class="p">)</span> <span class="p">{</span>
+				<span class="nx">realConfigFile</span> <span class="p">=</span> <span class="nx">currentConfigFile</span>
+				<span class="nx">err</span> <span class="o">:=</span> <span class="nx">v</span><span class="p">.</span><span class="nf">ReadInConfig</span><span class="p">()</span>
+				<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+					<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;error reading config file: %v\n&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+				<span class="p">}</span>
+				<span class="k">if</span> <span class="nx">v</span><span class="p">.</span><span class="nx">onConfigChange</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+					<span class="nx">v</span><span class="p">.</span><span class="nf">onConfigChange</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span>
+				<span class="p">}</span>
+			<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="nx">filepath</span><span class="p">.</span><span class="nf">Clean</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">Name</span><span class="p">)</span> <span class="o">==</span> <span class="nx">configFile</span> <span class="o">&amp;&amp;</span>
+				<span class="nx">event</span><span class="p">.</span><span class="nx">Op</span><span class="o">&amp;</span><span class="nx">fsnotify</span><span class="p">.</span><span class="nx">Remove</span><span class="o">&amp;</span><span class="nx">fsnotify</span><span class="p">.</span><span class="nx">Remove</span> <span class="o">!=</span> <span class="mi">0</span> <span class="p">{</span>
+				<span class="nx">eventsWG</span><span class="p">.</span><span class="nf">Done</span><span class="p">()</span>
+				<span class="k">return</span>
+			<span class="p">}</span>
+
+		<span class="k">case</span> <span class="nx">err</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">watcher</span><span class="p">.</span><span class="nx">Errors</span><span class="p">:</span>
+			<span class="k">if</span> <span class="nx">ok</span> <span class="p">{</span> <span class="c1">// &#39;Errors&#39; channel is not closed
+</span><span class="c1"></span>				<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;watcher error: %v\n&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+			<span class="p">}</span>
+			<span class="nx">eventsWG</span><span class="p">.</span><span class="nf">Done</span><span class="p">()</span>
+			<span class="k">return</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+  <span class="p">}()</span>
+  <span class="nx">watcher</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="nx">configDir</span><span class="p">)</span>
+  <span class="nx">initWG</span><span class="p">.</span><span class="nf">Done</span><span class="p">()</span>   <span class="c1">// done initializing the watch in this go routine, so the parent routine can move on...
+</span><span class="c1"></span>  <span class="nx">eventsWG</span><span class="p">.</span><span class="nf">Wait</span><span class="p">()</span> <span class="c1">// now, wait for event loop to end in this go-routine...
+</span><span class="c1"></span>  <span class="p">}()</span>
+  <span class="nx">initWG</span><span class="p">.</span><span class="nf">Wait</span><span class="p">()</span> <span class="c1">// make sure that the go routine above fully ended before returning
+</span><span class="c1"></span><span class="p">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>监听文件变为的WatchConfig 函数依赖第三方包:<a href="https://github.com/fsnotify/fsnotify">https://github.com/fsnotify/fsnotify</a>,该包主要主要作用是监听文件变化，通知用户。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-golang" data-lang="golang">    <span class="nx">initWG</span> <span class="o">:=</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span><span class="p">{}</span>
+    <span class="nx">initWG</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    
+</code></pre></td></tr></table>
+</div>
+</div><p>初始化一个协程等待组initWG，添加一个干活的协程小弟。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-golang" data-lang="golang">    <span class="nx">watcher</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">fsnotify</span><span class="p">.</span><span class="nf">NewWatcher</span><span class="p">()</span>
+		<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+			<span class="nx">log</span><span class="p">.</span><span class="nf">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+		<span class="p">}</span>
+		<span class="k">defer</span> <span class="nx">watcher</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
+		<span class="c1">// we have to watch the entire directory to pick up renames/atomic saves in a cross-platform way
+</span><span class="c1"></span>		<span class="nx">filename</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">v</span><span class="p">.</span><span class="nf">getConfigFile</span><span class="p">()</span>
+		<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+			<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;error: %v\n&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+			<span class="nx">initWG</span><span class="p">.</span><span class="nf">Done</span><span class="p">()</span>
+			<span class="k">return</span>
+		<span class="p">}</span>
+
+		<span class="nx">configFile</span> <span class="o">:=</span> <span class="nx">filepath</span><span class="p">.</span><span class="nf">Clean</span><span class="p">(</span><span class="nx">filename</span><span class="p">)</span>
+		<span class="nx">configDir</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">filepath</span><span class="p">.</span><span class="nf">Split</span><span class="p">(</span><span class="nx">configFile</span><span class="p">)</span>
+        <span class="nx">realConfigFile</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">filepath</span><span class="p">.</span><span class="nf">EvalSymlinks</span><span class="p">(</span><span class="nx">filename</span><span class="p">)</span>
+
+        <span class="nx">eventsWG</span> <span class="o">:=</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span><span class="p">{}</span>
+        <span class="nx">eventsWG</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+			<span class="k">for</span> <span class="p">{</span>
+				<span class="k">select</span> <span class="p">{</span>
+                <span class="k">case</span> <span class="nx">event</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">watcher</span><span class="p">.</span><span class="nx">Events</span><span class="p">:</span>
+                
+                <span class="k">case</span> <span class="nx">err</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">watcher</span><span class="p">.</span><span class="nx">Errors</span><span class="p">:</span>
+                <span class="p">}</span>    
+</code></pre></td></tr></table>
+</div>
+</div><p>在协程小弟中初始化fsnotify监听文件变化实例,该实例会等待文件的读取事件，如果I/O完成了读取任务，会将相应的修改或者创建事件注入到Event对象中。在协程小弟中再实例化一个协程等待组，在小弟协程中添加一个协程小弟弟，协程小弟弟使用select监听文件变化实例的两个chan，一个chan是文件变化事件及Event，另外一个是文件变化错误chan。<br>
+filepath.Clean 删除多余的路径分隔符，获取最短路径<br>
+filepath.Split 分隔目录与文件名
+filepath.EvalSymlinks 返回符号路径指向的路径名，可以直接访问</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-golang" data-lang="golang">
+<span class="kd">const</span> <span class="nx">writeOrCreateMask</span> <span class="p">=</span> <span class="nx">fsnotify</span><span class="p">.</span><span class="nx">Write</span> <span class="p">|</span> <span class="nx">fsnotify</span><span class="p">.</span><span class="nx">Create</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">filepath</span><span class="p">.</span><span class="nf">Clean</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">Name</span><span class="p">)</span> <span class="o">==</span> <span class="nx">configFile</span> <span class="o">&amp;&amp;</span>  <span class="nx">event</span><span class="p">.</span><span class="nx">Op</span><span class="o">&amp;</span><span class="nx">writeOrCreateMask</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">||</span>
+<span class="p">(</span><span class="nx">currentConfigFile</span> <span class="o">!=</span> <span class="s">&#34;&#34;</span> <span class="o">&amp;&amp;</span> <span class="nx">currentConfigFile</span> <span class="o">!=</span> <span class="nx">realConfigFile</span><span class="p">)</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>writeOrCreateMask 为监听文件修改实例的修改事件对应数字按位或的结果(修改事件 fsnotify.Write 对应数字为2，  修改事件 fsnotify.Create 对应数字为1 )writeOrCreateMask 结果为 11<br>
+filepath.Clean(event.Name) == configFile 判断文件修改实例的文件名与配置文件名是否相等<br>
+event.Op&amp;writeOrCreateMask != 0  判断文件修改实例的事件数字与writeOrCreateMask 按位与的结果是否为0,因为writeOrCreateMask 是创建和修改数字按位或的结果11,只要实例的event.Op为修改或者创建其中一项及即1或者2，event.Op&amp;writeOrCreateMask(01或者11与11按位与)就不可能为0.作用就是判断实例是否有修改或者创建的事件。<br>
+currentConfigFile != &quot;&quot; &amp;&amp; currentConfigFile != realConfigFile， currentConfigFile是监听文件变化实例监听的文件符号链接，realConfigFile是配置文件的符号链接。如果监听事件的符号链接不为空而且不与配置文件符号链接相等则说明修改前和修改后不是同一个文件。</p>
+<p>符合以上条件了就说明配置文件发生了修改或者创建的变化，通过ReadInConfig重写加载配置到viper实例中。如果存在回调函数onConfigChange，就调用一次回调函数。</p>
+<h2 id="调用">调用</h2>
+<h3 id="为globalconfig-赋值">为GlobalConfig 赋值</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-golang" data-lang="golang"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kd">func</span> <span class="nf">mian</span><span class="p">(){</span>
+  <span class="nx">hpconf</span><span class="p">.</span><span class="nf">Setup</span><span class="p">(</span><span class="s">&#34;config/settings.yml&#34;</span><span class="p">)</span>  
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>在main函数调用setup函数为GlobalConfig赋值，就可以直接使用GlobalConfig读取配置了。</p>
+<h3 id="使用globalconfig-初始化redis配置">使用GlobalConfig 初始化redis配置</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-golang" data-lang="golang"><span class="kn">package</span> <span class="nx">cache</span>
+<span class="kd">var</span> <span class="nx">RedisClient</span> <span class="o">*</span><span class="nx">redis</span><span class="p">.</span><span class="nx">Client</span>
+<span class="kn">import</span> <span class="p">(</span>
+    <span class="s">&#34;config&#34;</span>
+<span class="p">)</span>
+
+<span class="c1">// Setup redis连接初始化
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">Setup</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">Client</span> <span class="o">:=</span> <span class="nx">redis</span><span class="p">.</span><span class="nf">NewClient</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">redis</span><span class="p">.</span><span class="nx">Options</span><span class="p">{</span>
+		<span class="nx">Addr</span><span class="p">:</span>         <span class="nx">config</span><span class="p">.</span><span class="nx">GlobalConfig</span><span class="p">.</span><span class="nx">Addr</span><span class="p">,</span>
+		<span class="nx">PoolSize</span><span class="p">:</span>     <span class="nx">config</span><span class="p">.</span><span class="nx">GlobalConfig</span><span class="p">.</span><span class="nx">PoolSize</span><span class="p">,</span>
+		<span class="nx">Password</span><span class="p">:</span>     <span class="nx">config</span><span class="p">.</span><span class="nx">GlobalConfig</span><span class="p">.</span><span class="nx">Password</span><span class="p">,</span>
+		<span class="nx">DB</span><span class="p">:</span>           <span class="nx">config</span><span class="p">.</span><span class="nx">GlobalConfig</span><span class="p">.</span><span class="nx">DB</span><span class="p">,</span>
+		<span class="nx">ReadTimeout</span><span class="p">:</span>  <span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Duration</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span>
+		<span class="nx">WriteTimeout</span><span class="p">:</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Duration</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span>
+		<span class="nx">IdleTimeout</span><span class="p">:</span>  <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Duration</span><span class="p">(</span><span class="mi">60</span><span class="p">),</span>
+	<span class="p">})</span>
+
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">Client</span><span class="p">.</span><span class="nf">Ping</span><span class="p">().</span><span class="nf">Err</span><span class="p">();</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">log</span><span class="p">.</span><span class="nf">Fatal</span><span class="p">(</span><span class="s">&#34;connect to redis err:&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+		<span class="k">return</span>
+	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+		<span class="nx">log</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Database connect success&#34;</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="nx">RedisClient</span> <span class="p">=</span> <span class="nx">Client</span>
+	<span class="k">return</span>
+<span class="p">}</span>
+<span class="err">···</span>
+</code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2020-10-19&nbsp;<a class="git-hash" href="https://github.com/dillonzq/LoveIt/commit/3bbe4edd255c4181215db87f765dd330644cfd5d" target="_blank" title="commit by zhibao@xidian.com(zhibao@xidian.com) 3bbe4edd255c4181215db87f765dd330644cfd5d: 修改viper文件名">
+                                    <i class="fas fa-hashtag fa-fw"></i>3bbe4ed</a></span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/viper/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://example.com/viper/" data-title="Golang使用viper读取配置,修改实时生效" data-hashtags="golang"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://example.com/viper/" data-hashtag="golang"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://example.com/viper/" data-title="Golang使用viper读取配置,修改实时生效"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://example.com/viper/" data-title="Golang使用viper读取配置,修改实时生效"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://example.com/viper/" data-title="Golang使用viper读取配置,修改实时生效" data-ralateuid="xxxx"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/golang/">golang</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/firsthugoblog/" class="prev" rel="prev" title="My First Hugo Blog"><i class="fas fa-angle-left fa-fw"></i>My First Hugo Blog</a>
+            <a href="/git_command/" class="next" rel="next" title="git 基础命令">git 基础命令<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
+            </noscript><div id="gitalk" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
+            </noscript><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.76.5">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">chenyue233</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.6.2/dist/gitalk.min.css"><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="https://.disqus.com/embed.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/gitalk@1.6.2/dist/gitalk.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/typeit@7.0.4/dist/typeit.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"gitalk":{"admin":[""],"clientID":"","clientSecret":"","id":"2020-10-16T13:22:48+08:00","owner":"","repo":"","title":"Golang使用viper读取配置,修改实时生效"},"valine":{"appId":"UukRd1XJWBJ4PRmPLROEeskC-9Nh9j0Va","appKey":"lq8ovkbVXBB9XKQYTpE4YpMo","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"你的评论 ...","recordIP":true,"serverURLs":"https://uukrd1xj.lc-cn-e1-shared.com","visitor":true}},"data":{"id-1":"chenyue233","id-2":"chenyue233"},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.zh-cn","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
