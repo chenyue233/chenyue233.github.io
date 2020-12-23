@@ -21,19 +21,12 @@
     <guid>https://example.com/viper/</guid>
     <description><![CDATA[Viper介绍 Viper是大佬在github开源的由golang编写的读取配置的解决方案。 github地址: https://github.com/spf13/viper 支持从多种格式文件中读取配置，]]></description>
 </item><item>
-    <title>golang高效拼接字符串</title>
-    <link>https://example.com/combining_string/</link>
-    <pubDate>Fri, 16 Oct 2020 13:22:48 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://example.com/combining_string/</guid>
-    <description><![CDATA[拼接字符方式 拼接方式均为对同一个长度的字符串重复拼接5万次 1 2 // 声明拼接字符串 const combinString = &#34;golangdafahaogolangdafahaogolangdafahao!!!!&#34; 1. + 1 2 3 4 5 6 7 func combinStringWithAdd(temp string, n int) string { res := &#34;&#34; for i := 0; i &lt; n; i++]]></description>
-</item><item>
     <title>My First Hugo Blog</title>
     <link>https://example.com/firsthugoblog/</link>
     <pubDate>Fri, 16 Oct 2020 13:22:48 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://example.com/firsthugoblog/</guid>
-    <description><![CDATA[HI 实践出真知]]></description>
+    <description><![CDATA[HI 实践出真知 hugo 基础命令 创建一个新的网站 1 hugo new site quickstart 添加一个主题 1 2 3 cd quickstart git init git submodule add https://github.com/budparr/gohugo-theme-ananke.git themes/ananke 添加一个文章 1 hugo new posts/my-first-post.md 启动 Hugo 服务器 1 hugo server -D 打包网站到 /public 文件]]></description>
 </item><item>
     <title>redis 基础命令</title>
     <link>https://example.com/redis_command/</link>

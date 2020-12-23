@@ -11,7 +11,7 @@
 <meta property="og:url" content="https://example.com/firsthugoblog/" />
 <meta property="og:image" content="https://example.com/logo.png"/>
 <meta property="article:published_time" content="2020-10-16T13:22:48+08:00" />
-<meta property="article:modified_time" content="2020-10-19T14:54:56+08:00" />
+<meta property="article:modified_time" content="2020-12-23T17:28:46+08:00" />
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://example.com/logo.png"/>
 
@@ -20,7 +20,7 @@
 <meta name="application-name" content="chenyue233">
 <meta name="apple-mobile-web-app-title" content="chenyue233"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://example.com/firsthugoblog/" /><link rel="prev" href="https://example.com/redis_command/" /><link rel="next" href="https://example.com/combining_string/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://example.com/firsthugoblog/" /><link rel="prev" href="https://example.com/redis_command/" /><link rel="next" href="https://example.com/viper/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -29,8 +29,8 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/example.com\/firsthugoblog\/"
-        },"image": ["https:\/\/example.com\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "others","wordcount":  6 ,
-        "url": "https:\/\/example.com\/firsthugoblog\/","datePublished": "2020-10-16T13:22:48+08:00","dateModified": "2020-10-19T14:54:56+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+        },"image": ["https:\/\/example.com\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "others","wordcount":  75 ,
+        "url": "https:\/\/example.com\/firsthugoblog\/","datePublished": "2020-10-16T13:22:48+08:00","dateModified": "2020-12-23T17:28:46+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": "https:\/\/example.com\/images\/avatar.png"},"author": {
                 "@type": "Person",
@@ -110,7 +110,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">My First Hugo Blog</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>chenyue233</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/others/"><i class="far fa-folder fa-fw"></i>others</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-10-16">2020-10-16</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 6 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-10-16">2020-10-16</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 75 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 1 分钟&nbsp;<span id="/firsthugoblog/" class="leancloud_visitors" data-flag-title="My First Hugo Blog">
                         <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
                     </span>&nbsp;</div>
@@ -119,15 +119,81 @@
                     <span>目录</span>
                     <span><i class="details-icon fas fa-angle-right"></i></span>
                 </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents"></nav></div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#hugo-基础命令"><code>hugo</code> 基础命令</a>
+          <ul>
+            <li><a href="#创建一个新的网站">创建一个新的网站</a></li>
+            <li><a href="#添加一个主题"><strong>添加一个主题</strong></a></li>
+            <li><a href="#添加一个文章"><strong>添加一个文章</strong></a></li>
+            <li><a href="#启动-hugo-服务器">启动 <code>Hugo</code> 服务器</a></li>
+            <li><a href="#打包网站到-public-文件夹"><strong>打包网站到 <code>/public</code> 文件夹</strong></a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
             </div><div class="content" id="content"><h1 id="hi">HI</h1>
 <p>实践出真知</p>
-</div><div class="post-footer" id="post-footer">
+<h3 id="hugo-基础命令"><code>hugo</code> 基础命令</h3>
+<h4 id="创建一个新的网站">创建一个新的网站</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">hugo new site quickstart
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="添加一个主题"><strong>添加一个主题</strong></h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">cd quickstart
+git init
+git submodule add https://github.com/budparr/gohugo-theme-ananke.git themes/ananke
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="添加一个文章"><strong>添加一个文章</strong></h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">hugo new posts/my-first-post.md
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="启动-hugo-服务器">启动 <code>Hugo</code> 服务器</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">hugo server -D
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="打包网站到-public-文件夹"><strong>打包网站到 <code>/public</code> 文件夹</strong></h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">hugo -d public
+</code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>更新于 2020-10-19&nbsp;<a class="git-hash" href="https://github.com/dillonzq/LoveIt/commit/b4cbe50d83566363566d372ac3e9a22a1ac1dfde" target="_blank" title="commit by zhibao@xidian.com(zhibao@xidian.com) b4cbe50d83566363566d372ac3e9a22a1ac1dfde: 修改主题为 lovot">
-                                    <i class="fas fa-hashtag fa-fw"></i>b4cbe50</a></span>
+                <span>更新于 2020-12-23&nbsp;<a class="git-hash" href="https://github.com/dillonzq/LoveIt/commit/2cbeca0db3301ec3a4b4e3452164569d2b114b89" target="_blank" title="commit by zhibao@xidian.com(zhibao@xidian.com) 2cbeca0db3301ec3a4b4e3452164569d2b114b89: feature:在第一个博客中加入hugo相关命令">
+                                    <i class="fas fa-hashtag fa-fw"></i>2cbeca0</a></span>
             </div>
             <div class="post-info-license"></div>
         </div>
@@ -149,7 +215,7 @@
     </div>
 
     <div class="post-nav"><a href="/redis_command/" class="prev" rel="prev" title="redis 基础命令"><i class="fas fa-angle-left fa-fw"></i>redis 基础命令</a>
-            <a href="/combining_string/" class="next" rel="next" title="golang高效拼接字符串">golang高效拼接字符串<i class="fas fa-angle-right fa-fw"></i></a></div>
+            <a href="/viper/" class="next" rel="next" title="Golang使用viper读取配置,修改实时生效">Golang使用viper读取配置,修改实时生效<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
 <div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
                 Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
